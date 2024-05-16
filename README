@@ -1,0 +1,15 @@
+Como rodar:
+
+1) instalar todas as dependencias
+
+npm install
+
+2) rodar o backend
+
+cd back-end
+node server
+
+3) rodar o frontend
+
+cd front-end
+npm start

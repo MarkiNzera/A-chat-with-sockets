@@ -1,23 +1,23 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class PrivateMessages extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+const { Model, DataTypes} = require('sequelize');
+const sequelize = require("../config/database");
+
+class PrivateMessages extends Model {
     static associate(models) {
       // define association here
     }
-  }
-  PrivateMessages.init({
+}
+PrivateMessages.init({
+    pvMessageId: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER
+    },
     content: DataTypes.STRING
-  }, {
+}, {
     sequelize,
     modelName: 'PrivateMessages',
-  });
-  return PrivateMessages;
-};
+});
+
+module.exports = PrivateMessages;

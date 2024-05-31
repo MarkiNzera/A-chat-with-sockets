@@ -4,14 +4,14 @@ const sequelize = require("../config/database");
 
 class Groups extends Model {
     static associate(models) {
-      // define association here
+        this.belongsToMany(this, { through: models.BelongToGroups });
+        this.hasMany(models.GroupMessages)
     }
 }
 Groups.init({
     groupName: DataTypes.STRING
 }, {
     sequelize,
-    timestamps: false,
     modelName: 'Groups',
 });
 

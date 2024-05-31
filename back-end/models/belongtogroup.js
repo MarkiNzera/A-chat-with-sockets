@@ -8,8 +8,6 @@ class BelongToGroups extends Model {
     }
 }
 BelongToGroup.init({
-    userId: DataTypes.INTEGER,
-    groudId: DataTypes.INTEGER
 }, {
     sequelize,
     timestamps: false,

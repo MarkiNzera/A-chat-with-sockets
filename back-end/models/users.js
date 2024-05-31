@@ -5,8 +5,12 @@ const sequelize = require("../config/database");
 
 class Users extends Model {
     static associate(models) {
-        this.hasMany(models.Users, {foreignKey: "userId", as: "Friendship"});
-        this.hasMany(models.Groups, {foreignKey: "groupId", as: "group"});
+        this.hasMany(this, { through: models.Friendships });
+        this.belongsToMany(this, { through: models.Friendships });
+
+        this.hasMany(models.PrivateMessages);
+
+        this.belongsToMany(models.Groups, { through: models.BelongToGroups });
     }
 }
 Users.init({

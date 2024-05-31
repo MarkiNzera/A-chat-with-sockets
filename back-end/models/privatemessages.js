@@ -2,9 +2,11 @@
 const { Model, DataTypes} = require('sequelize');
 const sequelize = require("../config/database");
 
+const Users = require("./users")
+
 class PrivateMessages extends Model {
     static associate(models) {
-      // define association here
+        this.belongsToMany(models.Users);
     }
 }
 PrivateMessages.init({
@@ -19,5 +21,7 @@ PrivateMessages.init({
     sequelize,
     modelName: 'PrivateMessages',
 });
+
+PrivateMessages.hasOne(Users);
 
 module.exports = PrivateMessages;

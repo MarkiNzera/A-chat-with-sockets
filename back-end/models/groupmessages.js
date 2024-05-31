@@ -4,7 +4,7 @@ const sequelize = require("../config/database");
 
 class GroupMessages extends Model {
     static associate(models) {
-      // define association here
+        this.belongsTo(models.Groups);
     }
 }
 GroupMessages.init({

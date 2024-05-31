@@ -9,12 +9,9 @@ class Friendships extends Model {
     }
 }
 Friendships.init({
-    userId: DataTypes.INTEGER,
-    friendId: DataTypes.INTEGER,
-    pvMessageId: DataTypes.INTEGER
+    friendshipId: DataTypes.INTEGER
 }, {
     sequelize,
-    timestamps: false,
     modelName: 'Friendships',
 });
 

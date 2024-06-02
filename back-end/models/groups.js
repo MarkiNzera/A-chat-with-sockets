@@ -1,18 +1,28 @@
 'use strict';
-const { Model } = require('sequelize');
-const sequelize = require("../config/database");
+const { Model , DataTypes } = require('sequelize');
 
 class Groups extends Model {
+    static init(sequelize) {
+        super.init({
+            groupId: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true,
+                allowNull: false
+            },
+            groupName: {
+                type: DataTypes.STRING,
+                allowNull: false
+            }
+        }, {
+            sequelize,
+            modelName: 'Groups',
+        });
+    }
     static associate(models) {
-        this.belongsToMany(this, { through: models.BelongToGroups });
-        this.hasMany(models.GroupMessages)
+        this.belongsToMany(models.Users, { through: models.BelongToGroups, foreignKey: 'groupId' });
+        this.hasMany(models.GroupMessages, { foreignKey: "groupId", onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     }
 }
-Groups.init({
-    groupName: DataTypes.STRING
-}, {
-    sequelize,
-    modelName: 'Groups',
-});
 
 module.exports = Groups;

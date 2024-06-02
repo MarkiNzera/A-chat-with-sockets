@@ -1,16 +1,31 @@
 'use strict';
 const {Model, DataTypes} = require('sequelize');
-const sequelize = require("../config/database");
 
 class BelongToGroups extends Model {
+    static init(sequelize) {
+        super.init({
+            userId: {
+                type: DataTypes.INTEGER,
+                references: {
+                    model: "Users",
+                    key: "userId"
+                }
+            },
+            groupId: {
+                type: DataTypes.INTEGER,
+                references: {
+                    model: "Groups",
+                    key: "groupId"
+                }
+            }
+        }, 
+        {
+            sequelize,
+            modelName: 'BelongToGroups',
+        });
+    }
     static associate(models) {
       // define association here
     }
 }
-BelongToGroup.init({
-}, {
-    sequelize,
-    timestamps: false,
-    modelName: 'BelongToGroups',
-});
 module.exports = BelongToGroups;

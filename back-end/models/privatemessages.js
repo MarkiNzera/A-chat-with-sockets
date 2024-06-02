@@ -1,27 +1,28 @@
 'use strict';
 const { Model, DataTypes} = require('sequelize');
-const sequelize = require("../config/database");
-
-const Users = require("./users")
 
 class PrivateMessages extends Model {
+    static init(sequelize) {
+        super.init({
+            pvMessageId: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: DataTypes.INTEGER
+            },
+            content: {
+                type: DataTypes.STRING,
+                allowNull: false
+            }
+        }, {
+            sequelize,
+            modelName: 'PrivateMessages',
+        });
+    }
+
     static associate(models) {
-        this.belongsToMany(models.Users);
+        this.belongsTo(models.Users, { foreignKey: 'userId' });
     }
 }
-PrivateMessages.init({
-    pvMessageId: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.INTEGER
-    },
-    content: DataTypes.STRING
-}, {
-    sequelize,
-    modelName: 'PrivateMessages',
-});
-
-PrivateMessages.hasOne(Users);
 
 module.exports = PrivateMessages;

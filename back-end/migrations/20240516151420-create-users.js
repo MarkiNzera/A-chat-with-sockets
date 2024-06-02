@@ -27,10 +27,9 @@ module.exports = {
                 allowNull: false,
                 unique: true
             },
-            username: {
+            password: {
                 type: Sequelize.STRING,
-                allowNull: false,
-                unique: true
+                allowNull: false
             }
         });
   },

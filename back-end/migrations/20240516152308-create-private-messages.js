@@ -3,14 +3,25 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('PrivateMessages', {
-            id: {
+            pvMessageId: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
             content: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            userId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: "Users",
+                    key: "userId"
+                },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE',
+                allowNull: false
             },
             createdAt: {
                 allowNull: false,

@@ -1,13 +1,11 @@
-const Sequelize = require('sequelize');
+const { Sequelize } = require('sequelize');
 
 const Users = require("../models/users");
 const PrivateMessages = require("../models/privatemessages");
 const Groups = require("../models/groups");
 const GroupMessages = require("../models/groupmessages");
-
 const Friendships = require("../models/friendships");
 const BelongToGroups = require("../models/belongtogroup");
-
 
 const config = {
     dialect: "postgres",

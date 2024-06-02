@@ -1,16 +1,27 @@
 'use strict';
 const { Model, DataTypes} = require('sequelize');
-const sequelize = require("../config/database");
 
 class GroupMessages extends Model {
+    static init(sequelize) {
+        super.init({
+            gpmessageId: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: DataTypes.INTEGER
+            },
+            content: {
+                type: DataTypes.STRING,
+                allowNull: false
+            }
+        }, {
+            sequelize,
+            modelName: 'GroupMessages',
+        });
+    }
+
     static associate(models) {
-        this.belongsTo(models.Groups);
+        this.belongsTo(models.Groups, { foreignKey: "groupId", onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     }
 }
-GroupMessages.init({
-    content: DataTypes.STRING
-}, {
-    sequelize,
-    modelName: 'GroupMessages',
-});
-return GroupMessages;
+module.exports = GroupMessages;

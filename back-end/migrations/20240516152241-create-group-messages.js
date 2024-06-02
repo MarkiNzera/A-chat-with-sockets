@@ -3,14 +3,25 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('GroupMessages', {
-            id: {
+            gpMessageId: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            groupId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: "Groups",
+                    key: "groupId"
+                },
+                onUpdate: 'CASCADE',
+                onDelete: 'CASCADE',
+                allowNull: false
+            },
             content: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
+                allowNull: false
             },
             createdAt: {
                 allowNull: false,

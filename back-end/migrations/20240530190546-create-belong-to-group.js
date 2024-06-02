@@ -3,11 +3,19 @@
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('BelongToGroups', {
-            belongsToId: {
-                allowNull: false,
-                autoIncrement: true,
-                primaryKey: true,
-                type: Sequelize.INTEGER
+            userId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: "Users",
+                    key: "userId"
+                }
+            },
+            groupId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: "Groups",
+                    key: "groupId"
+                }
             }
         });
     },

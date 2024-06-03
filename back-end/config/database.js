@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { Sequelize } = require('sequelize');
 
 const Users = require("../models/users");
@@ -8,13 +10,13 @@ const Friendships = require("../models/friendships");
 const BelongToGroups = require("../models/belongtogroup");
 
 const config = {
-    dialect: "postgres",
-    host: "localhost",
-    port: "5432",
+    dialect: process.env.DB_DIALECT,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     logging: false,
-    username: "postgres",
-    password: "iBF^YkA*a24a@%",
-    database: "chatsocket"
+    username: process.env.DB_USER,
+    password: process.env.DB_PWD,
+    database: process.env.DB_NAME
 };
 
 const connection = new Sequelize(config);

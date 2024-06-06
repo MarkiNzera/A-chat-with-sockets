@@ -21,6 +21,7 @@ class GroupMessages extends Model {
     }
 
     static associate(models) {
+        this.belongsTo(models.Users, { foreignKey: "userId" });
         this.belongsTo(models.Groups, { foreignKey: "groupId", onDelete: 'CASCADE', onUpdate: 'CASCADE' });
     }
 }

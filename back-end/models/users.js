@@ -45,6 +45,7 @@ class Users extends Model {
         this.belongsToMany(this, { as: "Friendship2", through: models.Friendships, foreignKey: 'friendId', otherKey: 'userId' });
 
         this.hasMany(models.PrivateMessages, { foreignKey: 'userId' });
+        this.hasMany(models.GroupMessages, { foreignKey: 'userId' });
 
         this.belongsToMany(models.Groups, { through: models.BelongToGroups, foreignKey: 'userId' });
     }

@@ -22,10 +22,10 @@ const config = {
 const connection = new Sequelize(config);
 
 Users.init(connection);
-PrivateMessages.init(connection);
-Groups.init(connection);
-GroupMessages.init(connection);
 Friendships.init(connection);
+Groups.init(connection);
+PrivateMessages.init(connection);
+GroupMessages.init(connection);
 BelongToGroups.init(connection);
 
 Users.associate(connection.models);

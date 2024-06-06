@@ -22,6 +22,7 @@ class PrivateMessages extends Model {
 
     static associate(models) {
         this.belongsTo(models.Users, { foreignKey: 'userId' });
+        this.belongsTo(models.Friendships, { foreignKey: 'friendshipId' });
     }
 }
 

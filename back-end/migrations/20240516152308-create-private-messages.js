@@ -23,6 +23,13 @@ module.exports = {
                 onDelete: 'CASCADE',
                 allowNull: false
             },
+            friendShipId: {
+                type: Sequelize.INTEGER,
+                references: {
+                    model: "Friendships",
+                    key: "friendshipId"
+                }
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

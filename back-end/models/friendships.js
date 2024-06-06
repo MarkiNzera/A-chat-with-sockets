@@ -5,6 +5,12 @@ const { Model, DataTypes} = require('sequelize');
 class Friendships extends Model {
     static init(sequelize) {
         super.init({
+            friendshipId: {
+                allowNull: false,
+                autoIncrement: true,
+                primaryKey: true,
+                type: DataTypes.INTEGER
+            },
             userId: {
                 type: DataTypes.INTEGER,
                 references: {
@@ -26,7 +32,7 @@ class Friendships extends Model {
         });
     }
     static associate(models) {
-      // define association here
+        this.hasMany(models.PrivateMessages, { foreignKey: "friendshipId" });
     }
 }
 module.exports = Friendships;

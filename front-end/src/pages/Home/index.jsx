@@ -1,4 +1,4 @@
-import './App.css';
+import './styles.css';
 import io from "socket.io-client";
 
 const socket = io("http://localhost:8080/");

@@ -1,0 +1,58 @@
+.asideBar {
+    padding: 20px;
+    border-right: solid 2px rgba(94, 94, 94, .2);
+}
+
+.asideHeader {
+    display: flex;
+    align-items: center;
+    color: #00A3FF;
+    gap: 10px;
+}
+
+.asideHeader span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.search {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    position: relative;
+    color: #CCCFD0;
+}
+
+.search input {
+    flex-grow: 1;
+    padding: 8px 10px 8px 32px;
+    border: 1px solid #CCCFD0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.search input::placeholder {
+    color: #CCCFD0;
+    font-weight:300;
+    letter-spacing: 1px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 10px;
+    opacity: .3;
+}
+
+.newChat {
+    cursor: pointer;
+    display: flex;
+    place-items: center;
+    color: #ffffff;
+    background-color: #00A3FF;
+    border-radius: 6px;
+    padding: 7px;
+}

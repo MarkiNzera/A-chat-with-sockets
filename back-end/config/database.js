@@ -28,9 +28,9 @@ PrivateMessages.init(connection);
 GroupMessages.init(connection);
 BelongToGroups.init(connection);
 
-// Users.associate(connection.models);
-// PrivateMessages.associate(connection.models);
-// Groups.associate(connection.models);
-// GroupMessages.associate(connection.models);
+Users.associate(connection.models);
+PrivateMessages.associate(connection.models);
+Groups.associate(connection.models);
+GroupMessages.associate(connection.models);
 
 module.exports = connection;

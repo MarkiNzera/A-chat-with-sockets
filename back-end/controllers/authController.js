@@ -2,22 +2,21 @@ require('dotenv').config();
 
 const bcrypt = require('bcrypt');
 
-const User = require("../models/User");
+const User = require("../models/users");
 const validator = require("../helpers/validation");
-const { signAccessToken, signRefreshToken, verifyRefreshToken } = require("../middleware/verifyJwtToken");
+const { signAccessToken } = require("../middleware/validateAccessToken");
 
 
 module.exports = {
     async login(req, res){
-        let [check, msg, user] = await validator.loginValidation(req);
+        let [check, msg, user] = await validator.loginValidator(req.body);
         if (check) {
             try {
                 user.password = undefined;
                 
                 return res.status(201).json({
                     user,
-                    accessToken: await signAccessToken({id: user.id}),
-                    refreshToken: await signRefreshToken({id: user.id})
+                    accessToken: await signAccessToken({id: user.id})
                 });
             } catch (err) {
                 return res.status(500).json({ err: "Não foi possivel fazer o login" });
@@ -27,7 +26,7 @@ module.exports = {
         return res.status(400).json({ error: msg });
     },
     async register(req, res){
-        let [check, msg] = await validator.registerValidation(req);
+        let [check, msg] = await validator.registerValidation(req.body);
 
         if (check){
             try {
@@ -38,8 +37,7 @@ module.exports = {
 
                 return res.status(201).json({
                     user,
-                    accessToken: await signAcessToken({ id: user.id }),
-                    refreshToken: await signRefreshToken({ id: user.id })
+                    accessToken: await signAccessToken({ id: user.id })
                 });
 
             } catch (err) {

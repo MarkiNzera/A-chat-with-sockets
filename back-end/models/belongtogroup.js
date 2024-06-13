@@ -21,6 +21,7 @@ class BelongToGroups extends Model {
         }, 
         {
             sequelize,
+            timestamps: true,
             modelName: 'BelongToGroups',
         });
     }

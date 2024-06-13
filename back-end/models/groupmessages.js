@@ -16,6 +16,7 @@ class GroupMessages extends Model {
             }
         }, {
             sequelize,
+            timestamps: true,
             modelName: 'GroupMessages',
         });
     }

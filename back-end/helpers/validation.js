@@ -32,11 +32,11 @@ module.exports = {
 
     async registerValidation(body) {
         const schema = joi.object({
-            username: joi.string().min(6).required(),
-            password: joi.string().min(6).required(),
+            username: joi.string().required(),
+            password: joi.string().required(),
             firstname: joi.string().required(),
             lastname: joi.string().required(),
-            email: joi.string().min(6).required(),
+            email: joi.string().required(),
         });
 
         const { error } = schema.validate(body);

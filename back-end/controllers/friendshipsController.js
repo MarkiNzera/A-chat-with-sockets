@@ -17,7 +17,7 @@ module.exports = {
 
     async findAll(req, res){
         try {
-            const friendships = await Friendships.findAll({ attributes: ["friendshipId", "userId", "friendId"] });
+            const friendships = await Friendships.findAll();
             return res.status(200).json(friendships);
         } catch (err) {
             console.log(err);
@@ -27,7 +27,7 @@ module.exports = {
 
     async findOne(req, res){
         try {
-            const friendship = await Friendships.findByPk(req.params.id, { attributes: ["friendshipId", "userId", "friendId"] });
+            const friendship = await Friendships.findByPk(req.params.id);
             if (friendship){
                 return res.status(200).json(friendship);
             }
@@ -41,7 +41,7 @@ module.exports = {
     async update(req, res){
         try {
 
-            const friendship = await Friendships.findByPk(req.params.id, { attributes: ["friendshipId", "userId", "friendId"] });
+            const friendship = await Friendships.findByPk(req.params.id);
             if (friendship){
                 await friendship.update(req.body);
                 return res.status(200).json(friendship);
@@ -56,7 +56,7 @@ module.exports = {
 
     async delete(req, res){
         try {
-            const friendship = await Friendships.findByPk(req.params.id, { attributes: ["friendshipId", "userId", "friendId"] });
+            const friendship = await Friendships.findByPk(req.params.id);
             if (friendship){
                 await friendship.destroy();
                 return res.status(200).json({message: "Amizade deletada com sucesso"});

@@ -28,6 +28,7 @@ class Friendships extends Model {
         }, 
         {
             sequelize,
+            timestamps: true,
             modelName: 'Friendships',
         });
     }

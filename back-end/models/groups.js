@@ -16,6 +16,7 @@ class Groups extends Model {
             }
         }, {
             sequelize,
+            timestamps: true,
             modelName: 'Groups',
         });
     }

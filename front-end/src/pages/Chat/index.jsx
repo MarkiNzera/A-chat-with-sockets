@@ -15,6 +15,7 @@ export default function Chat () {
 
     const sendMessage = () => {
         if(inputMessage.trim() !== "") {
+            
             socketRef.current.emit("message", {msg: inputMessage});
             setInputMessage("");
         }

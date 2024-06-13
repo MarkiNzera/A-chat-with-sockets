@@ -60,7 +60,7 @@
     padding: 7px;
 }
 
-.messageList {
+.chatsList {
     margin-top: 30px;
     width: 100%;
     flex-grow: 1;
@@ -70,19 +70,19 @@
     padding-right: 16px;
 }
 
-.messageList::-webkit-scrollbar {
+.chatsList::-webkit-scrollbar {
     width: 5px;
 }
 
-.messageList::-webkit-scrollbar-track {
+.chatsList::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-.messageList::-webkit-scrollbar-thumb {
+.chatsList::-webkit-scrollbar-thumb {
     background: #888;
 }
 
-.messageList::-webkit-scrollbar-thumb:hover {
+.chatsList::-webkit-scrollbar-thumb:hover {
     height: 5px;
     background: #555;
 }

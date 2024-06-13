@@ -1,18 +1,23 @@
+import { useState } from "react";
 import { MdAdd, MdLogoDev, MdOutlineSearch } from "react-icons/md";
 import userImg from '../../assets/defaultUserImg.png'
 import styles from './aside.module.css'
 import Card from "../Card";
 
-export default function Aside () {
+export default function Aside ({ setCurrentChat }) {
 
-    const messages = [];
+    const chats = [];
     for (let i = 1; i <= 100; i++) {
-        messages.push({
+        chats.push({
             name: `Usuário ${i}`,
             image: userImg,
             lastMessage: `Mensagem ${i}`,
             messageTime: `12:${i < 10 ? '0' + i : i}`,
         });
+    }
+
+    const handleChatClick = (chat) => {
+        setCurrentChat(chat);
     }
 
     return (
@@ -33,14 +38,15 @@ export default function Aside () {
                 </div>
             </div>
 
-            <div className={styles.messageList}>
-                {messages.map((message, index) => (
+            <div className={styles.chatsList}>
+                {chats.map((chat, index) => (
                     <Card 
                         key={index}
-                        name={message.name} 
-                        image={message.image} 
-                        lastMessage={message.lastMessage} 
-                        messageTime={message.messageTime} 
+                        name={chat.name} 
+                        image={chat.image} 
+                        lastMessage={chat.lastMessage} 
+                        messageTime={chat.messageTime}
+                        onClick={() => handleChatClick(chat)}
                     />
                 ))}
             </div>

@@ -3,13 +3,13 @@ import { MdLocalPhone, MdMoreVert, MdVideocam } from "react-icons/md";
 import styles from './header.module.css'
 
 
-export default function Header () {
+export default function Header ({ currentChat }) {
     return (
         <header className={styles.chatHeader}>
             <div className={styles.userData}>
-                <img src={userImg} alt="" />
+                <img src={currentChat ? currentChat.image : userImg} alt="" />
                 <div className={styles.userDescription}>
-                    <p>Meu Nome</p>
+                    <p>{currentChat ? currentChat.name : 'User Name'}</p>
                     <span>Online</span>
                 </div>
             </div>

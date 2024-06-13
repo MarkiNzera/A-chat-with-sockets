@@ -9,7 +9,10 @@ import Message from '../../components/Message';
 export default function Chat () {
     const socketRef = useRef(io("http://localhost:8080/"));
 
-    // Load messages from localStorage or set to empty array if not found
+
+    const [currentChat, setCurrentChat] = useState(null);
+
+
     const [messages, setMessages] = useState(() => JSON.parse(localStorage.getItem('messages')) || []);
     const [inputMessage, setInputMessage] = useState("");
 
@@ -39,9 +42,9 @@ export default function Chat () {
 
     return (
         <div className={styles.chatContainer}>
-            <Aside />
+            <Aside setCurrentChat={setCurrentChat} />
             <main>
-                <Header />
+                <Header currentChat={currentChat} />
                 <div className={styles.messagesContainer}>
                     {messages.map((msg, index) => (
                         <Message key={index} text={msg} />

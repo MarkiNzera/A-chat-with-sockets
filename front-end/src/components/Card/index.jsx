@@ -1,8 +1,8 @@
 import styles from './card.module.css';
 
-export default function Card({ name, image, lastMessage, messageTime }) {
+export default function Card({ name, image, lastMessage, messageTime, onClick }) {
     return (
-        <div className={styles.message}>
+        <div className={styles.message} onClick={onClick}>
             <div className={styles.avatar}>
                 <img src={image} alt="" />
             </div>

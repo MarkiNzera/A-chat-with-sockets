@@ -28,7 +28,6 @@ export default function Chat () {
         const showMsg = (data) => {
             setMessages(prevMessages => {
                 const newMessages = [...prevMessages, data.msg];
-                // Save new messages to localStorage
                 localStorage.setItem('messages', JSON.stringify(newMessages));
                 return newMessages;
             });

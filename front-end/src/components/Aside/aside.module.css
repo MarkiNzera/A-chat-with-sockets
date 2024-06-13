@@ -67,7 +67,6 @@
     overflow-y: auto;
     scroll-behavior: smooth;
     -ms-overflow-style: none;
-    padding-right: 16px;
 }
 
 .chatsList::-webkit-scrollbar {

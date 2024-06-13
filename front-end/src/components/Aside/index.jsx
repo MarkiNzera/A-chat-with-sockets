@@ -1,20 +1,28 @@
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { MdAdd, MdLogoDev, MdOutlineSearch } from "react-icons/md";
 import userImg from '../../assets/defaultUserImg.png'
 import styles from './aside.module.css'
 import Card from "../Card";
+import api from "../../services/api";
 
 export default function Aside ({ setCurrentChat }) {
 
-    const chats = [];
-    for (let i = 1; i <= 100; i++) {
-        chats.push({
-            name: `Usuário ${i}`,
-            image: userImg,
-            lastMessage: `Mensagem ${i}`,
-            messageTime: `12:${i < 10 ? '0' + i : i}`,
-        });
+    const [chats, setChats] = useState([]);
+
+    async function getUsers () {
+        const response = await api.get('/users');
+        if(response.status === 200) {
+            console.log(response.data)
+            setChats(response.data);
+        } else {
+            console.error(response.data.message)
+        }
     }
+
+    useEffect(() => {
+        getUsers();
+      }, []);
+
 
     const handleChatClick = (chat) => {
         setCurrentChat(chat);
@@ -33,19 +41,19 @@ export default function Aside ({ setCurrentChat }) {
                 />
                 <MdOutlineSearch className={styles.searchIcon} size={18}/>
 
-                <div className={styles.newChat}>
+                {/* <div className={styles.newChat}>
                     <MdAdd size={20}/>
-                </div>
+                </div> */}
             </div>
 
             <div className={styles.chatsList}>
                 {chats.map((chat, index) => (
                     <Card 
                         key={index}
-                        name={chat.name} 
-                        image={chat.image} 
-                        lastMessage={chat.lastMessage} 
-                        messageTime={chat.messageTime}
+                        name={chat.username} 
+                        image={userImg} 
+                        lastMessage={"Last Message"} 
+                        messageTime={"12:00"}
                         onClick={() => handleChatClick(chat)}
                     />
                 ))}

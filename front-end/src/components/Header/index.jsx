@@ -7,9 +7,9 @@ export default function Header ({ currentChat }) {
     return (
         <header className={styles.chatHeader}>
             <div className={styles.userData}>
-                <img src={currentChat ? currentChat.image : userImg} alt="" />
+                <img src={userImg} alt="" />
                 <div className={styles.userDescription}>
-                    <p>{currentChat ? currentChat.name : 'User Name'}</p>
+                    <p>{currentChat ? currentChat.username : 'User Name'}</p>
                     <span>Online</span>
                 </div>
             </div>

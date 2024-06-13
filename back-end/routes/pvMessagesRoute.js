@@ -1,11 +1,11 @@
 const router = require("express").Router();
 
-const usersController = require("../controllers/usersController");
+const pvmessagesController = require("../controllers/pvMessagesController");
 
-router.get("/users", usersController.findAll);
-router.get("/users/:id", usersController.findOne);
-router.post("/users", usersController.create);
-router.put("/users/:id", usersController.update);
-router.delete("/users/:id", usersController.delete);
+router.get("/pvmessages", pvmessagesController.findAll);
+router.get("/pvmessages/:id", pvmessagesController.findOne);
+router.post("/pvmessages", pvmessagesController.create);
+router.put("/pvmessages/:id", pvmessagesController.update);
+router.delete("/pvmessages/:id", pvmessagesController.delete);
 
 module.exports = router;

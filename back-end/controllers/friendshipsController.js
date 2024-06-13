@@ -1,8 +1,4 @@
-const bcrypt = require('bcrypt');
 const Friendships = require("../models/friendships");
-// const Stores = require("../models/store");
-const validator = require('../helpers/validation');
-const { signAccessToken } = require('../middleware/validateAccessToken');
 
 module.exports = {
     async create(req, res){

@@ -9,7 +9,7 @@ const io = require('socket.io')(http, {
 });
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/userRoute");
-// const pvMessageRoute = require("./routes/pvMessagesRoute");
+const pvMessageRoute = require("./routes/pvMessagesRoute");
 const friendshipRoute = require("./routes/friendShipsRoute");
 const db = require("./config/database");
 
@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
 
 app.use(authRoute);
 app.use(userRoute);
-// app.use(pvMessageRoute);
+app.use(pvMessageRoute);
 app.use(friendshipRoute);
 
 io.on('connection', (socket) => {

@@ -1,95 +1,71 @@
-const bcrypt = require('bcrypt');
-const Sellers = require("../models/seller");
-const Stores = require("../models/store");
-const validator = require('../helpers/validation');
-const { signAccessToken } = require('../middleware/validateAccessToken');
+const Users = require("../models/users");
+const PrivateMessages = require("../models/privatemessages");
 
 module.exports = {
     async create(req, res){
-        let [check, msg] = await validator.sellerRegisterValidation(req.body);
+        try {
+            const { cnpj, companyName } = req.body;
+            const store = await PrivateMessages.create({ cnpj, companyName });
 
-        if (check){
-
-            try {
-                const storeCnpj = await Stores.findByPk(req.body.storeCnpj, { attributes: ["cnpj"] });
-
-                if (!storeCnpj){
-                    return res.status(404).json({ message: "Loja não encontrada" });
-                }
-
-                const salt = await bcrypt.genSalt(10);
-                req.body.password = bcrypt.hashSync(req.body.password, salt);
-                const seller = await Sellers.create(req.body);
-                seller.password = undefined;
-                req.role = 'seller';
-
-                return res.status(201).json({
-                    cpf: seller.cpf,
-                    storeCnpjs: seller.storeCnpjs,
-                    firstname: seller.firstname, 
-                    lastname: seller.lastname, 
-                    accessToken: signAccessToken({ sellerId: seller.sellerId, role: req.role }),
-                    // refreshToken: await refreshToken({ cpf: seller.cpf })
-                    });
-            } catch (err) {
-                console.log(err);
-                return res.status(400).json({ message: msg });
-            }
-
+            return res.status(201).json({
+                cnpj: store.cnpj, 
+                companyName: store.companyName
+                });
+        } catch (err) {
+            return res.status(400).json({ message: err });
         }
-
-        return res.status(404).json({message: msg});
     },
 
     async findAll(req, res){
         try {
-            const sellers = await Sellers.findAll();
-            return res.status(200).json(sellers);
+            const privatemessages = await PrivateMessages.findAll({ attributes: ["content", "userId", "friendShipId"] });
+            return res.status(200).json(privatemessages);
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel listar os administradores"});
+            return res.status(500).json({message: "Não foi possivel listar as mensagens"});
         }
     },
 
     async findOne(req, res){
         try {
-            const sellers = await Sellers.findByPk(req.params.cpf);
-            if (sellers){
-                return res.status(200).json(sellers);
+            const privatemessages = await PrivateMessages.findByPk(req.params.id, { attributes: ["content", "userId", "friendShipId"] });
+            if (privatemessages){
+                return res.status(200).json(privatemessages);
             }
 
-            return res.status(404).json({message: "Fiscal não encontrado"});
+            return res.status(404).json({message: "Mensagem não encontrada"});
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel encontrar o fiscal"});
+            return res.status(500).json({message: "Não foi possivel encontrar as mensagens"});
         }
     },
 
     async update(req, res){
         try {
 
-            const sellers = await Sellers.findByPk(req.params.cpf);
-            if (sellers){
-                await sellers.update(req.body);
-                return res.status(200).json(sellers);
+            const privatemessages = await PrivateMessages.findByPk(req.params.id, { attributes: ["content", "userId", "friendShipId"] });
+            if (privatemessages){
+                await privatemessages.update(req.body);
+                return res.status(200).json(privatemessages);
             } 
 
-            return res.status(404).json({message: "Fiscal não encontrado"});
+            return res.status(404).json({message: "Mensagem não encontrada"});
 
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel encontrar o fiscal"});
+            console.log(err)
+            return res.status(500).json({message: "Não foi possivel encontrar as mensagens"});
         }
     },
 
     async delete(req, res){
         try {
-            const sellers = await Sellers.findByPk(req.params.cpf);
-            if (sellers){
-                await sellers.destroy();
-                return res.status(200).json({message: "Fiscal deletado com sucesso"});
+            const privatemessages = await PrivateMessages.findByPk(req.params.id, { attributes: ["content", "userId", "friendShipId"] });
+            if (privatemessages){
+                await privatemessages.destroy();
+                return res.status(200).json({message: "Mensagem deletada com sucesso"});
             }
 
-            return res.status(404).json({message: "Fiscal não encontrado"});
+            return res.status(404).json({message: "Mensagem não encontrada"});
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel deletar o fiscal"});
+            return res.status(500).json({message: "Não foi possivel deletar as mensagens"});
         }
     }
 }

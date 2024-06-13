@@ -1,0 +1,14 @@
+.message {
+    background-color: #00A3FF;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-top-left-radius: 0;
+    padding: 12px 32px 12px 20px;
+    margin-bottom: 10px;
+    display: table;
+    color: #fff;
+    font-weight: 500;
+    text-align: left;
+    max-width: 70%;
+}

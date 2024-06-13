@@ -1,7 +1,20 @@
 import { MdAdd, MdLogoDev, MdOutlineSearch } from "react-icons/md";
+import userImg from '../../assets/defaultUserImg.png'
 import styles from './aside.module.css'
+import Card from "../Card";
 
 export default function Aside () {
+
+    const messages = [];
+    for (let i = 1; i <= 100; i++) {
+        messages.push({
+            name: `Usuário ${i}`,
+            image: userImg,
+            lastMessage: `Mensagem ${i}`,
+            messageTime: `12:${i < 10 ? '0' + i : i}`,
+        });
+    }
+
     return (
         <aside className={styles.asideBar}>
             <header className={styles.asideHeader}>
@@ -20,7 +33,17 @@ export default function Aside () {
                 </div>
             </div>
 
-            <div className={styles.messageList}></div>
+            <div className={styles.messageList}>
+                {messages.map((message, index) => (
+                    <Card 
+                        key={index}
+                        name={message.name} 
+                        image={message.image} 
+                        lastMessage={message.lastMessage} 
+                        messageTime={message.messageTime} 
+                    />
+                ))}
+            </div>
         </aside>
     )
 }

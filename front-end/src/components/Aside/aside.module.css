@@ -1,6 +1,9 @@
 .asideBar {
     padding: 20px;
     border-right: solid 2px rgba(94, 94, 94, .2);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .asideHeader {
@@ -55,4 +58,31 @@
     background-color: #00A3FF;
     border-radius: 6px;
     padding: 7px;
+}
+
+.messageList {
+    margin-top: 30px;
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    padding-right: 16px;
+}
+
+.messageList::-webkit-scrollbar {
+    width: 5px;
+}
+
+.messageList::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.messageList::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.messageList::-webkit-scrollbar-thumb:hover {
+    height: 5px;
+    background: #555;
 }

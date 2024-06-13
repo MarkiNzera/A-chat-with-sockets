@@ -1,0 +1,29 @@
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    background-color: #fff;
+    outline: none;
+    font-size: 18px;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin-left: 10px;
+    cursor: pointer;
+    color: #00A3FF;
+}

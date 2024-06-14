@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import Aside from '../../components/Aside';
 import Footer from '../../components/Footer';
 import Message from '../../components/Message';
+import api from '../../services/api';
 
 export default function Chat () {
     const socketRef = useRef(io("http://localhost:8080/"));
@@ -18,9 +19,21 @@ export default function Chat () {
 
     const sendMessage = () => {
         if(inputMessage.trim() !== "") {
-            
-            socketRef.current.emit("message", {msg: inputMessage});
-            setInputMessage("");
+            const messageData = {
+                content: inputMessage,
+                friendshipId: 1,
+                userId: 1
+            };
+    
+            api.post('/pvmessages', messageData)
+            .then(response => {
+                console.log('Success:', response.data);
+                socketRef.current.emit("message", {msg: inputMessage});
+                setInputMessage("");
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
     }
 

@@ -8,50 +8,75 @@ import Message from '../../components/Message';
 import api from '../../services/api';
 
 export default function Chat () {
-    const socketRef = useRef(io("http://localhost:8080/"));
+    const [socketRef, setSocketRef] = useState(null);
 
+    useEffect(() => {
+        setSocketRef(io("http://localhost:8080/"));
+    }, []);
+
+    async function getBDMessages() {
+        const response = await api.get('/pvmessages');
+        if(response.status === 200) {
+            return response.data;
+        } else {
+            return [];
+        }
+    }
 
     const [currentChat, setCurrentChat] = useState(null);
 
-
-    const [messages, setMessages] = useState(() => JSON.parse(localStorage.getItem('messages')) || []);
+    const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState("");
 
-    const sendMessage = () => {
+    const sendMessage = async () => {
+        const user = JSON.parse(localStorage.getItem('userId'));
+    
         if(inputMessage.trim() !== "") {
             const messageData = {
                 content: inputMessage,
                 friendshipId: 1,
-                userId: 1
+                userId: user
             };
     
-            api.post('/pvmessages', messageData)
-            .then(response => {
-                console.log('Success:', response.data);
-                socketRef.current.emit("message", {msg: inputMessage});
+            const response = await api.post('/pvmessages', messageData);
+    
+            if (response.status === 201) {
+                socketRef.emit("message", {msg: inputMessage, userId: user});
                 setInputMessage("");
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            } else {
+                console.error('Error:', response);
+            }
         }
     }
 
     useEffect(() => {
-        const showMsg = (data) => {
-            setMessages(prevMessages => {
-                const newMessages = [...prevMessages, data.msg];
-                localStorage.setItem('messages', JSON.stringify(newMessages));
-                return newMessages;
-            });
+        const loadAndSaveMessages = async () => {
+            const bdMessages = await getBDMessages();
+            setMessages(bdMessages);
         };
     
-        socketRef.current.on("showmsg", showMsg);
+        loadAndSaveMessages();
     
-        return () => {
-            socketRef.current.off("showmsg", showMsg);
-        };
-    }, []);
+        if (socketRef) {
+            const showMsg = (data) => {
+                setMessages(prevMessages => {
+                    const newMessage = {
+                        content: data.msg,
+                        friendshipId: 1,
+                        userId: data.userId
+                    };
+                    return [...prevMessages, newMessage];
+                });
+            };
+        
+            socketRef.on("showmsg", showMsg);
+        
+            return () => {
+                socketRef.off("showmsg", showMsg);
+                socketRef.disconnect();
+            };
+        }
+    }, [socketRef]);
 
     return (
         <div className={styles.chatContainer}>
@@ -59,9 +84,14 @@ export default function Chat () {
             <main>
                 <Header currentChat={currentChat} />
                 <div className={styles.messagesContainer}>
-                    {messages.map((msg, index) => (
-                        <Message key={index} text={msg} />
-                    ))}
+                    {messages.map((msg, index) => {
+                        const user = JSON.parse(localStorage.getItem('userId'));
+                        const isSent = msg.userId === user;
+
+                        return (
+                            <Message key={index} text={msg.content} sent={isSent} />
+                        );
+                    })}
                 </div>
                 <Footer inputMessage={inputMessage} setInputMessage={setInputMessage} event={sendMessage} />
             </main>

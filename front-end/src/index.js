@@ -1,11 +1,13 @@
-import './global.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import Home from './pages/Home';
-import Chat from './pages/Chat';
+import App from './App';
+import AuthProvider from './providers/AuthProvider';
+import './global.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Chat />
-  </React.StrictMode>
-);
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </React.StrictMode>,
+)

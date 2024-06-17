@@ -21,8 +21,7 @@ module.exports = {
             const friendships = await Friendships.findAll();
             return res.status(200).json(friendships);
         } catch (err) {
-            console.log(err);
-            return res.status(500).json({message: "Cannot get friendships"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -35,7 +34,7 @@ module.exports = {
 
             return res.status(404).json({message: "Friendship not found"});
         } catch (err) {
-            return res.status(500).json({message: "Cannot find friendship"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -51,7 +50,7 @@ module.exports = {
             return res.status(404).json({message: "Friendship not found"});
 
         } catch (err) {
-            return res.status(500).json({message: "Cannot find friendship"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -65,8 +64,7 @@ module.exports = {
 
             return res.status(404).json({message: "Friendship not found"});
         } catch (err) {
-            console.log(err)
-            return res.status(500).json({message: "Cannot delete friendship"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -79,7 +77,7 @@ module.exports = {
 
             return res.status(404).json({message: "Friendship not found"});
         } catch (err) {
-            return res.status(500).json({message: "Cannot find all friendships of an user"});
+            return res.status(500).json({message: err});
         }
     }
 }

@@ -20,8 +20,7 @@ module.exports = {
             const privatemessages = await PrivateMessages.findAll();
             return res.status(200).json(privatemessages);
         } catch (err) {
-            console.log(err)
-            return res.status(500).json({message: "Cannot get messages"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -34,7 +33,7 @@ module.exports = {
 
             return res.status(404).json({message: "Message not found"});
         } catch (err) {
-            return res.status(500).json({message: "Cannot find message"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -50,8 +49,7 @@ module.exports = {
             return res.status(404).json({message: "Message not found"});
 
         } catch (err) {
-            console.log(err)
-            return res.status(500).json({message: "Cannot find message"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -65,8 +63,7 @@ module.exports = {
 
             return res.status(404).json({message: "Message not found"});
         } catch (err) {
-            console.log(err);
-            return res.status(500).json({message: "Cannot delete message"});
+            return res.status(500).json({message: err});
         }
     }
 }

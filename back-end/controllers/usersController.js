@@ -32,7 +32,7 @@ module.exports = {
             const users = await Users.findAll();
             return res.status(200).json(users);
         } catch (err) {
-            return res.status(500).json({message: "Cannot get users"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -45,7 +45,7 @@ module.exports = {
 
             return res.status(404).json({message: "User not found"});
         } catch (err) {
-            return res.status(500).json({message: "Cannot find user"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -61,7 +61,7 @@ module.exports = {
             return res.status(404).json({message: "User not found"});
 
         } catch (err) {
-            return res.status(500).json({message: "Cannot find user"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -75,7 +75,7 @@ module.exports = {
 
             return res.status(404).json({message: "User not found"});
         } catch (err) {
-            return res.status(500).json({message: "Cannot delete user"});
+            return res.status(500).json({message: err});
         }
     }
 }

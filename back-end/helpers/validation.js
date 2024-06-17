@@ -16,17 +16,22 @@ module.exports = {
             return [ false, error.details[0], null];
         }
 
-        let checkedUser = await Users.findOne({ where: { username: body.username } }, { attributes: ["username", "password", "fistname", "lastname", "email"] });
-        if (!checkedUser){
-            return [ false, 'User not found', null ];
-        }
+        try {
 
-        const PwdCheck = await bcrypt2.compare(body.password, checkedUser.password);
-        if (!PwdCheck){
-            return [ false, 'Invalid password', null ];
-        }
+            let checkedUser = await Users.findOne({ where: { username: body.username } }, { attributes: ["username", "password", "fistname", "lastname", "email"] });
+            if (!checkedUser){
+                return [ false, 'User not found', null ];
+            }
+        
+                const PwdCheck = await bcrypt2.compare(body.password, checkedUser.password);
+            if (!PwdCheck){
+                return [ false, 'Invalid password', null ];
+            }
 
-        return [ true, null, checkedUser ]
+            return [ true, null, checkedUser ];
+        } catch (err){
+            return [ false, err, null ];
+        }
         
     },
 
@@ -44,13 +49,17 @@ module.exports = {
         if (error){
             return [ false, error.details[0], null];
         }
+        try {
 
-        let checkedUser = await Users.findOne({ where: { username: body.username } }, { attributes: ["username", "password", "fistname", "lastname", "email"] });
-        if (checkedUser){
-            return [ false, 'User already exists', null ];
+            let checkedUser = await Users.findOne({ where: { username: body.username } }, { attributes: ["username", "password", "fistname", "lastname", "email"] });
+            if (checkedUser){
+                return [ false, 'User already exists', null ];
+            }
+        
+            return [ true, null ];
+        } catch (err) {
+            return [ false, err, null ];
         }
-
-        return [ true, null ];
 
     }
 }

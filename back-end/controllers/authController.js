@@ -19,11 +19,11 @@ module.exports = {
                     accessToken: signAccessToken({id: user.id})
                 });
             } catch (err) {
-                return res.status(500).json({ err: "Login error" });
+                return res.status(500).json({ message: err });
             }
         }
 
-        return res.status(400).json({ error: msg });
+        return res.status(400).json({ message: msg });
     },
     async register(req, res){
         let [check, msg] = await validator.registerValidation(req.body);
@@ -41,11 +41,11 @@ module.exports = {
                 });
 
             } catch (err) {
-                return res.status(500).json({ error: "Register error" });
+                return res.status(500).json({ message: err });
             }
         } 
 
-        return res.status(400).json({ error: msg });
+        return res.status(400).json({ message: msg });
 
     },
 //     async logout(req, res){

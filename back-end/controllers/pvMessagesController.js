@@ -65,5 +65,18 @@ module.exports = {
         } catch (err) {
             return res.status(500).json({message: err});
         }
+    },
+
+    async findAllFromFriendship(req, res) {
+        try {
+            const privatemessages = await PrivateMessages.findAll({where: [{friendshipId: req.params.friendshipId}]})
+            if (privatemessages){
+                return res.status(200).json(privatemessages);
+            }
+
+            return res.status(404).json({message: "Messages not found"});
+        } catch (err) {
+            return res.status(500).json({message: err});
+        }
     }
 }

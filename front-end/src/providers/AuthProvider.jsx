@@ -1,32 +1,98 @@
-import axios from "axios";
 import PropTypes from 'prop-types';
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
+import api from "../services/api";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(localStorage.getItem('accessToken'));
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+    const [register, setRegister] = useState({});
+    const [login, setLogin] = useState({});
 
-    const updateToken = (newToken) => {
-        setToken(newToken);
-    }
+    const registerUser = useCallback(async (e) => {
+        e.preventDefault();
+        const response = await api.post('/register', register);
 
-    const contextValue = useMemo(() => ({ token, updateToken }), [token]);
-
-    useEffect(() => {
-        if(token) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-            localStorage.setItem('accessToken', token);
+        if (response.status === 201) {
+            console.log("Usuário cadastrado com sucesso!");
         } else {
-            delete axios.defaults.headers.common['Authorization'];
-
-            localStorage.removeItem('accessToken');
+            console.error(response.data.message);
         }
-    }, [token])
+    }, [register]);
+    
+
+    const loginUser = useCallback(async (e) => {
+        e.preventDefault();
+        const response = await api.post('/login', login);
+
+        if (response.status === 201) {
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            setUser(response.data.user);
+        } else {
+            console.error(response.data.message);
+        }
+    }, [login]);
+
+
+    const logoutUser = useCallback(() => {
+        localStorage.removeItem('user');
+        setUser(null);
+    }, []);
+
+
+
+
+
+
+    // const [token, setToken] = useState(localStorage.getItem('user').accessToken || null);
+
+    // const updateToken = (newToken) => {
+    //     setToken(newToken);
+    // }
+
+    // const contextValue = useMemo(() => ({ token, updateToken }), [token]);
+
+    // useEffect(() => {
+    //     if(token) {
+    //         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+    //         localStorage.setItem('accessToken', token);
+    //     } else {
+    //         delete axios.defaults.headers.common['Authorization'];
+
+    //         localStorage.removeItem('accessToken');
+    //     }
+    // }, [token])
+
+
+
+
+
+
+
+
+    const updateRegister = useCallback((userData) => {
+        setRegister(userData);
+    }, [])
+
+    const updateLogin = useCallback((userData) => {
+        setLogin(userData);
+    }, [])
+
+
 
     return (
-        <AuthContext.Provider value={contextValue}>
+        <AuthContext.Provider value={{
+            // contextValue,
+            user,
+            register,
+            updateRegister,
+            registerUser,
+            login,
+            updateLogin,
+            loginUser,
+            logoutUser
+        }}>
             {children}
         </AuthContext.Provider>
     )

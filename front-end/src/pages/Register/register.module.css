@@ -1,4 +1,4 @@
-.login {
+.register {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -49,10 +49,4 @@
     width: 100%;
     border: none;
     border-radius: 10px;
-    font-weight: bold;
-}
-
-.text {
-    color: white;
-    font-weight: bold;
 }

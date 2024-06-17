@@ -1,33 +1,14 @@
-import { useState } from "react"
+import { useContext } from "react"
+import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
-import api from "../../services/api";
 import styles from './login.module.css';
 import { MdLogoDev } from "react-icons/md"; 
 
 export default function Login() {
 
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-
-    const { updateToken } = useAuth();
+    const { login, updateLogin, loginUser } = useContext(AuthContext);
     
     const navigate = useNavigate();
-
-    async function handleLogin (event) {
-        event.preventDefault();
-
-        const response = await api.post('/login', {username, password});
-
-        if (response.status === 201) {
-            localStorage.setItem('accessToken', response.data.accessToken);
-            localStorage.setItem('userId', response.data.user.userId);
-            updateToken(response.data.accessToken);
-            navigate('/chat');
-        } else {
-            console.error(response.data.message);
-        }
-    }
 
     return (
         <div className={styles.login}>
@@ -38,13 +19,18 @@ export default function Login() {
                     <h1 className={styles.title}>Socket Chat</h1>
                 </header>
 
-                <form onSubmit={handleLogin} className={styles.form}>
-                    <input className={styles.input} type="text" id="username" name="username" placeholder="Usuário" value={username} onChange={e => setUsername(e.target.value)} /><br />
+                <form onSubmit={loginUser} className={styles.form}>
+                    <input required className={styles.input} type="text" id="username" name="username" placeholder="Usuário" onChange={(e) => updateLogin({...login, username: e.target.value})} />
 
-                    <input className={styles.input} type="password" id="password" name="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} /><br />
+                    <input required className={styles.input} type="password" id="password" name="password" placeholder="Senha" onChange={(e) => updateLogin({...login, password: e.target.value})} />
 
                     <button type="submit" className={styles.button}>Login</button>
                 </form>
+
+                <p className={styles.text}>Não possui uma conta?</p>
+
+                <button className={styles.button} onClick={() => navigate('/register')}>Criar nova conta</button>
+
             </div>
 
         </div>

@@ -6,8 +6,8 @@ const Users = require('../models/users');
 module.exports = {
     async loginValidator(body){
         const schema = joi.object({
-            username: joi.string().min(6).required(),
-            password: joi.string().min(6).required()
+            username: joi.string().required(),
+            password: joi.string().required()
         });
 
         const { error } = schema.validate(body);

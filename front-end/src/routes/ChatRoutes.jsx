@@ -1,29 +1,24 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { useAuth } from '../providers/AuthProvider';
+import { AuthContext } from '../providers/AuthProvider';
+import { ChatProvider } from '../providers/ChatProvider';
 import Login from '../pages/Login';
 import Chat from '../pages/Chat';
+import Register from '../pages/Register';
+import { useContext } from 'react';
 
 export const ChatRoutes = () => {
-    const { token } = useAuth();
+    const { user } = useContext(AuthContext);
 
     return (
-        <Router>
-            <Routes>
-                {
-                    token ? (
-                        <>
-                            <Route path="/chat" element={<Chat />} />
-                            <Route path="/" element={<Navigate to="/chat" replace />} />
-                            <Route path="/*" element={<Navigate to="/chat" replace />} />
-                        </>
-                    ) : (
-                        <>
-                            <Route path="/" element={<Login />} />
-                            <Route path="/*" element={<Navigate to="/" replace />} />
-                        </>
-                    )
-                }
-            </Routes>
-        </Router>
+        <ChatProvider user={user}>
+            <Router>
+                <Routes>
+                    <Route path="/" element={user ? <Chat /> : <Navigate to="/login" replace />} />
+                    <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
+                    <Route path="/register" element={user ? <Navigate to="/" replace /> : <Register />} />
+                    <Route path="*" element={user ? <Navigate to="/" replace /> : <Navigate to="/login" replace />} />
+                </Routes>
+            </Router>
+        </ChatProvider>
     );
 };

@@ -1,11 +1,12 @@
 import { io } from 'socket.io-client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './chat.module.css';
 import Header from "../../components/Header";
 import Aside from '../../components/Aside';
 import Footer from '../../components/Footer';
 import Message from '../../components/Message';
 import api from '../../services/api';
+import NewChat from '../../components/NewChat';
 
 export default function Chat () {
     const [socketRef, setSocketRef] = useState(null);
@@ -80,6 +81,7 @@ export default function Chat () {
 
     return (
         <div className={styles.chatContainer}>
+            <NewChat  />
             <Aside setCurrentChat={setCurrentChat} />
             <main>
                 <Header currentChat={currentChat} />

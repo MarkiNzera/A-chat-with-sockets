@@ -30,7 +30,8 @@
 }
 
 .search input {
-    flex-grow: 1;
+    /* flex-grow: 1; */
+    width: calc(100% - 30px);
     padding: 8px 10px 8px 32px;
     border: 1px solid #CCCFD0;
     border-radius: 8px;

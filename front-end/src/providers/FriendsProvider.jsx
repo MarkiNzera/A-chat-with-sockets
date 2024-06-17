@@ -21,7 +21,7 @@ export const FriendsProvider = ( chat, user ) => {
         }
 
         getFriend();
-    }, []);
+    }, [friendId]);
 
     return {friend};
 }

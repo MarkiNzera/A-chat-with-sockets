@@ -50,6 +50,7 @@
     border: none;
     border-radius: 10px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .text {

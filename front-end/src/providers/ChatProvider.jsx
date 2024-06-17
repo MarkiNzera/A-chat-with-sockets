@@ -19,7 +19,7 @@ export const ChatProvider = ({ children, user }) => {
             const newFriend = response.data.filter((u) => {
                 let isFriend = false;
 
-                if (u.userId === user.userId) {
+                if (u?.userId === user?.userId) {
                     return false;
                 }
 
@@ -35,7 +35,7 @@ export const ChatProvider = ({ children, user }) => {
         }
 
         getUsers();
-    }, [chats]);
+    }, [chats, user?.userId]);
 
 
     useEffect(() => {

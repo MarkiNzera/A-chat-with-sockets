@@ -14,7 +14,8 @@ const AuthProvider = ({ children }) => {
         const response = await api.post('/register', register);
 
         if (response.status === 201) {
-            console.log("Usuário cadastrado com sucesso!");
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            setUser(response.data.user);
         } else {
             console.error(response.data.message);
         }

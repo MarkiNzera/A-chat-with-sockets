@@ -32,6 +32,7 @@
     flex-direction: column;
     justify-content: center;
     overflow-x: hidden;
+    color: var(--text_primary);
 }
 
 .messageContent span {

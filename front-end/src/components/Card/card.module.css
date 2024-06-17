@@ -8,7 +8,7 @@
 }
 
 .message:hover {
-    background-color: #999;
+    background-color: var(--border_color);
 }
 
 .avatar {
@@ -32,25 +32,30 @@
     flex-direction: column;
     justify-content: center;
     overflow-x: hidden;
+    color: var(--text_primary);
 }
 
 .messageContent span {
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--text_primary);
     white-space: nowrap;
 }
 
 .messageContent span:first-child {
     font-size: 16px;
+    color: var(--text_primary);
     font-weight: 600;
     margin-bottom: 5px;
 }
 
 .messageContent span:last-child {
+    color: var(--text_primary);
     font-size: 14px;
 }
 
 .messageTime {
     flex-shrink: 0;
+    color: var(--text_primary);
     margin-left: 10px;
 }

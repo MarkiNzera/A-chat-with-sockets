@@ -4,7 +4,7 @@
     justify-content: space-between;
     height: 80px;
     padding: 0 20px;
-    background-color: #fff;
+    background-color: var(--body_color);
 }
 
 .input {
@@ -13,7 +13,8 @@
     padding: 12px;
     border-radius: 20px;
     border: none;
-    background-color: #fff;
+    background-color: var(--body_color);
+    color: var(--text_primary);
     outline: none;
     font-size: 18px;
 }
@@ -26,5 +27,5 @@
 .icon {
     margin-left: 10px;
     cursor: pointer;
-    color: #00A3FF;
+    color: var(--main_color);
 }

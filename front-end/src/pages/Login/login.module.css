@@ -54,6 +54,6 @@
 }
 
 .text {
-    color: white;
+    color: var(--body_color);
     font-weight: bold;
 }

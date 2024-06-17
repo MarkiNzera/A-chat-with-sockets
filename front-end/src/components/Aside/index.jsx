@@ -4,6 +4,7 @@ import { ChatContext } from '../../providers/ChatProvider';
 import { AuthContext } from '../../providers/AuthProvider';
 import Card from "../Card";
 import styles from './aside.module.css'
+import DarkMode from '../DarkMode';
 
 export default function Aside () {
 
@@ -12,9 +13,15 @@ export default function Aside () {
 
     return (
         <aside className={styles.asideBar}>
+
+            
+
             <header className={styles.asideHeader}>
-                <MdLogoDev size={28}/>
-                <span>Socket Chat</span>
+                <div className={styles.logo}>
+                    <MdLogoDev size={28}/>
+                    <span>Socket Chat</span>
+                </div>
+                <DarkMode className={styles.mode} />
             </header>
 
             <div className={styles.search}>

@@ -1,20 +1,29 @@
 .asideBar {
     padding: 20px;
-    border-right: solid 2px rgba(94, 94, 94, .2);
+    border-right: solid 2px var(--border_color);
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: var(--body_color);
 }
 
 .asideHeader {
     display: flex;
     align-items: center;
-    color: #00A3FF;
+    justify-content: space-between;
+    color: var(--main_color);
     gap: 10px;
 }
 
-.asideHeader span {
-    font-size: 18px;
+.logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo span {
+    font-size: 22px;
     font-weight: 600;
 }
 
@@ -33,14 +42,15 @@
     /* flex-grow: 1; */
     width: calc(100% - 30px);
     padding: 8px 10px 8px 32px;
-    border: 1px solid #CCCFD0;
+    border: 1px solid var(--border_color);
     border-radius: 8px;
     font-size: 14px;
     outline: none;
+    background-color: var(--body_color);
 }
 
 .search input::placeholder {
-    color: #CCCFD0;
+    color: var(--text_primary);
     font-weight:300;
     letter-spacing: 1px;
 }
@@ -49,14 +59,15 @@
     position: absolute;
     left: 10px;
     opacity: .3;
+    color: var(--text_primary);
 }
 
 .newChat {
     cursor: pointer;
     display: flex;
     place-items: center;
-    color: #ffffff;
-    background-color: #00A3FF;
+    color: var(--body_color);
+    background-color: var(--main_color);
     border-radius: 6px;
     padding: 7px;
 }

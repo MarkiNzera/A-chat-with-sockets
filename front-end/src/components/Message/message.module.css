@@ -6,7 +6,7 @@
 }
 
 .message {
-    background-color: #00A3FF;
+    background-color: var(--main_color);
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
@@ -14,17 +14,19 @@
     padding: 12px 32px 12px 20px;
     max-width: 70%;
     margin: 5px;
-    color: #fff;
+    color: var(--body_color);
     font-weight: 500;
 }
 
 .messageSent {
     align-self: flex-end;
+    background-color: var(--message_sent);
+    color: #FFFFFF;
 }
 
 .messageReceived {
     align-self: flex-start;
     text-align: left;
-    background-color: #fff;
-    color: #000;
+    background-color: var(--message_received);
+    color: var(--text_primary);
 }

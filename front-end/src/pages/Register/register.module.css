@@ -16,7 +16,7 @@
     width: 20%;
     min-width: 360px;
     padding: 40px 20px;
-    background-color: #00A3FF;
+    background-color: var(--main_color);
     border-radius: 20px;
 }
 

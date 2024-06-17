@@ -1,5 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
+:root {
+  --body_backgroud: #F5F5F5;
+  --body_color: #FFFFFF;
+  --main_color: #00A3FF;
+  --border_color: #DFDFDF;
+  --message_received: #FFFFFF;
+  --message_sent: #00a3ff;
+  --text_primary: #000000;
+  --text_user: #FFFFFF;
+  --drop_shadow_color: #c5c5c5;
+}
+
+[data-theme="dark"] {
+  --body_backgroud: #181818;
+  --body_color: #121212;
+  --main_color: #00A3FF;
+  --border_color: #4A4B4B;
+  --message_received: #292929;
+  --message_sent: #00a3ff;
+  --text_primary: #FFFFFF;
+  --text_user: #FFFFFF;
+  --drop_shadow_color: #000000;
+}
+
 * {
   margin: 0;
   padding: 0;

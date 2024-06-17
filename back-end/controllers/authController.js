@@ -16,14 +16,14 @@ module.exports = {
                 
                 return res.status(201).json({
                     user,
-                    accessToken: await signAccessToken({id: user.id})
+                    accessToken: signAccessToken({id: user.id})
                 });
             } catch (err) {
-                return res.status(500).json({ err: "Não foi possivel fazer o login" });
+                return res.status(500).json({ message: err });
             }
         }
 
-        return res.status(400).json({ error: msg });
+        return res.status(400).json({ message: msg });
     },
     async register(req, res){
         let [check, msg] = await validator.registerValidation(req.body);
@@ -37,15 +37,15 @@ module.exports = {
 
                 return res.status(201).json({
                     user,
-                    accessToken: await signAccessToken({ id: user.id })
+                    accessToken: signAccessToken({ id: user.id })
                 });
 
             } catch (err) {
-                return res.status(500).json({ err: "Não foi possivel adicionar o usuario" });
+                return res.status(500).json({ message: err });
             }
         } 
 
-        return res.status(400).json({ error: msg });
+        return res.status(400).json({ message: msg });
 
     },
 //     async logout(req, res){

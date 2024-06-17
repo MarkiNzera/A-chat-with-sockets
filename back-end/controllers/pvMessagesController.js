@@ -20,8 +20,7 @@ module.exports = {
             const privatemessages = await PrivateMessages.findAll();
             return res.status(200).json(privatemessages);
         } catch (err) {
-            console.log(err)
-            return res.status(500).json({message: "Não foi possivel listar as mensagens"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -32,9 +31,9 @@ module.exports = {
                 return res.status(200).json(privatemessages);
             }
 
-            return res.status(404).json({message: "Mensagem não encontrada"});
+            return res.status(404).json({message: "Message not found"});
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel encontrar as mensagens"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -47,11 +46,10 @@ module.exports = {
                 return res.status(200).json(privatemessages);
             } 
 
-            return res.status(404).json({message: "Mensagem não encontrada"});
+            return res.status(404).json({message: "Message not found"});
 
         } catch (err) {
-            console.log(err)
-            return res.status(500).json({message: "Não foi possivel encontrar as mensagens"});
+            return res.status(500).json({message: err});
         }
     },
 
@@ -60,13 +58,12 @@ module.exports = {
             const privatemessages = await PrivateMessages.findByPk(req.params.id);
             if (privatemessages){
                 await privatemessages.destroy();
-                return res.status(200).json({message: "Mensagem deletada com sucesso"});
+                return res.status(200).json(privatemessages);
             }
 
-            return res.status(404).json({message: "Mensagem não encontrada"});
+            return res.status(404).json({message: "Message not found"});
         } catch (err) {
-            console.log(err);
-            return res.status(500).json({message: "Não foi possivel deletar as mensagens"});
+            return res.status(500).json({message: err});
         }
     }
 }

@@ -22,7 +22,7 @@ module.exports = {
             return res.status(200).json(friendships);
         } catch (err) {
             console.log(err);
-            return res.status(500).json({message: "Não foi possivel listar as amizades"});
+            return res.status(500).json({message: "Cannot get friendships"});
         }
     },
 
@@ -33,9 +33,9 @@ module.exports = {
                 return res.status(200).json(friendship);
             }
 
-            return res.status(404).json({message: "Amizade não encontrada"});
+            return res.status(404).json({message: "Friendship not found"});
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel encontrar o amizade"});
+            return res.status(500).json({message: "Cannot find friendship"});
         }
     },
 
@@ -48,10 +48,10 @@ module.exports = {
                 return res.status(200).json(friendship);
             } 
 
-            return res.status(404).json({message: "Amizade não encontrada"});
+            return res.status(404).json({message: "Friendship not found"});
 
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel encontrar o amizade"});
+            return res.status(500).json({message: "Cannot find friendship"});
         }
     },
 
@@ -59,13 +59,14 @@ module.exports = {
         try {
             const friendship = await Friendships.findByPk(req.params.id);
             if (friendship){
-                await friendship.destroy();
-                return res.status(200).json({message: "Amizade deletada com sucesso"});
+                friendship.destroy();
+                return res.status(200).json(friendship);
             }
 
-            return res.status(404).json({message: "Amizade não encontrada"});
+            return res.status(404).json({message: "Friendship not found"});
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel deletar o amizade"});
+            console.log(err)
+            return res.status(500).json({message: "Cannot delete friendship"});
         }
     },
 
@@ -76,9 +77,9 @@ module.exports = {
                 return res.status(200).json(friendship);
             }
 
-            return res.status(404).json({message: "Amizade não encontrada"});
+            return res.status(404).json({message: "Friendship not found"});
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel encontrar o amizade"});
+            return res.status(500).json({message: "Cannot find all friendships of an user"});
         }
     }
 }

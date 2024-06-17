@@ -16,10 +16,10 @@ module.exports = {
                 
                 return res.status(201).json({
                     user,
-                    accessToken: await signAccessToken({id: user.id})
+                    accessToken: signAccessToken({id: user.id})
                 });
             } catch (err) {
-                return res.status(500).json({ err: "Não foi possivel fazer o login" });
+                return res.status(500).json({ err: "Login error" });
             }
         }
 
@@ -37,11 +37,11 @@ module.exports = {
 
                 return res.status(201).json({
                     user,
-                    accessToken: await signAccessToken({ id: user.id })
+                    accessToken: signAccessToken({ id: user.id })
                 });
 
             } catch (err) {
-                return res.status(500).json({ err: "Não foi possivel adicionar o usuario" });
+                return res.status(500).json({ error: "Register error" });
             }
         } 
 

@@ -20,7 +20,7 @@ module.exports = {
                 });
 
             } catch (err) {
-                return res.status(500).json({ err: "Não foi possivel adicionar o usuario" });
+                return res.status(500).json({ error: err });
             }
         } 
 
@@ -32,7 +32,7 @@ module.exports = {
             const users = await Users.findAll();
             return res.status(200).json(users);
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel listar os administradores"});
+            return res.status(500).json({message: "Cannot get users"});
         }
     },
 
@@ -43,9 +43,9 @@ module.exports = {
                 return res.status(200).json(users);
             }
 
-            return res.status(404).json({message: "Usuario não encontrado"});
+            return res.status(404).json({message: "User not found"});
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel encontrar o usuario"});
+            return res.status(500).json({message: "Cannot find user"});
         }
     },
 
@@ -58,10 +58,10 @@ module.exports = {
                 return res.status(200).json(users);
             } 
 
-            return res.status(404).json({message: "Usuario não encontrado"});
+            return res.status(404).json({message: "User not found"});
 
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel encontrar o usuario"});
+            return res.status(500).json({message: "Cannot find user"});
         }
     },
 
@@ -70,12 +70,12 @@ module.exports = {
             const users = await Users.findByPk(req.params.id);
             if (users){
                 await users.destroy();
-                return res.status(200).json({message: "Usuario deletado com sucesso"});
+                return res.status(200).json(users);
             }
 
-            return res.status(404).json({message: "Usuario não encontrado"});
+            return res.status(404).json({message: "User not found"});
         } catch (err) {
-            return res.status(500).json({message: "Não foi possivel deletar o usuario"});
+            return res.status(500).json({message: "Cannot delete user"});
         }
     }
 }

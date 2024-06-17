@@ -4,7 +4,7 @@ import api from "../services/api";
 export const FriendsProvider = ( chat, user ) => {
     const [friend, setFriend] = useState(null);
 
-    const friendId = chat.friendId === user.userId ? chat.userId : chat.friendId;
+    const friendId = chat ? (chat.friendId === user.userId ? chat.userId : chat.friendId) : null;
 
     useEffect(() => {
         const getFriend = async () => {

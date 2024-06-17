@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import { MdLogoDev, MdOutlineSearch, MdAdd } from "react-icons/md";
-import styles from './aside.module.css'
-import Card from "../Card";
 import { ChatContext } from '../../providers/ChatProvider';
 import { AuthContext } from '../../providers/AuthProvider';
+import Card from "../Card";
+import styles from './aside.module.css'
 
-export default function Aside ({ setCurrentChat }) {
+export default function Aside () {
 
     const { user } = useContext(AuthContext)
-    const { chats } = useContext(ChatContext);
+    const { chats, selectChat, showNewChatForm } = useContext(ChatContext);
 
     return (
         <aside className={styles.asideBar}>
@@ -23,14 +23,16 @@ export default function Aside ({ setCurrentChat }) {
                 />
                 <MdOutlineSearch className={styles.searchIcon} size={18}/>
 
-                <div className={styles.newChat}>
-                    <MdAdd size={20}/>
+                <div className={styles.newChat} onClick={showNewChatForm}>
+                    <MdAdd size={20} />
                 </div>
             </div>
 
             <div className={styles.chatsList}>
                 {chats?.map((chat, index) => (
-                        <Card key={index} chat={chat} user={user}/>
+                    <div key={index} onClick={() => selectChat(chat)}>
+                        <Card chat={chat} user={user}/>
+                    </div>
                 ))}
             </div>
         </aside>

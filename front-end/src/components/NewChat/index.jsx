@@ -13,7 +13,7 @@ export default function NewChat () {
             <input type="text" />
             <div>
                 {newChats?.map((chat, index) => (
-                    <NewChatCard key={index} chat={chat} user={chat}/>
+                    <NewChatCard key={index} chat={chat} user={chat} />
                 ))}
             </div>
         </div>

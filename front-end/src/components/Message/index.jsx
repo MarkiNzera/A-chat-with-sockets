@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import styles from './message.module.css';
 import { AuthContext } from '../../providers/AuthProvider';
 
-export default function Message({ text, sender }) {
+export default function Message({ text, sender, createAt }) {
 
     const { user } = useContext(AuthContext);
 

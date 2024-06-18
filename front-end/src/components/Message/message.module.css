@@ -7,24 +7,27 @@
 
 .message {
     background-color: var(--main_color);
-    border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     border-bottom-left-radius: 12px;
-    border-top-left-radius: 0;
-    padding: 12px 32px 12px 20px;
     max-width: 70%;
     margin: 5px;
     color: var(--body_color);
     font-weight: 500;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .messageSent {
+    padding: 12px 42px 12px 20px;
+    border-top-left-radius: 12px;
     align-self: flex-end;
     background-color: var(--message_sent);
     color: #FFFFFF;
 }
 
 .messageReceived {
+    padding: 12px 20px 12px 42px;
+    border-top-right-radius: 12px;
     align-self: flex-start;
     text-align: left;
     background-color: var(--message_received);

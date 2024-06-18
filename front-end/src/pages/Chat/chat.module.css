@@ -20,6 +20,8 @@ main {
 .messagesContainer {
     height: calc(100vh - 160px);
     overflow-y: auto;
+    overflow-x: hidden;
+    width: calc(100vw - 300px);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

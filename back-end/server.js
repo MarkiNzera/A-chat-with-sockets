@@ -25,16 +25,38 @@ app.use(userRoute);
 app.use(pvMessageRoute);
 app.use(friendshipRoute);
 
-io.on('connection', (socket) => {
-    socket.on("message", (data) => {
-        io.emit("showmsg", data);
-    });
-    
+let connectedUsers = [];
+
+io.on("connection", (socket) => {
+
+    socket.on("login", (userId) => {
+        !connectedUsers.some((user) => user.userId === userId) &&
+            connectedUsers.push({
+                userId,
+                socketId: socket.id,
+            });
+
+        io.emit("getConnectedUsers", connectedUsers);
+    })
+
+
+    socket.on("sendMessage", (message) => {
+        const user = connectedUsers.find((user) => user.userId === message.friendId);
+
+        if(user) {
+            io.to(user.socketId).emit("getMessage", message);
+        }
+    })
+
+
     socket.on("disconnect", () => {
-        console.log("socket disconnected: " + socket.id);
+        connectedUsers = connectedUsers.filter((user) => user.socketId !== socket.id);
+        io.emit("getConnectedUsers", connectedUsers);
     });
 
 });
+
+io.listen(4000);
 
 http.listen(8080, () => {
     console.log('listening on port 8080');

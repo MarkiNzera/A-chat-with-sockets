@@ -23,10 +23,10 @@ export default function Chat () {
                 {
                     currentChat && (
                         <>
-                            <Header currentChat={friend} />
+                            <Header friend={friend} />
                             <div className={styles.messagesContainer} ref={messageContainer}>
                                 {messages?.map((message, index) => (
-                                    <Message key={index} text={message.content} sender={message.userId} />
+                                    <Message key={index} text={message.content} sender={message.userId} createdAt={message.createdAt} />
                                 ))}
                             </div>
                             <Footer currentChat={currentChat} />

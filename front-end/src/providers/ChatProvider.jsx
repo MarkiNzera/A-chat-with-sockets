@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect, useCallback, useRef } from "react";
 import api from "../services/api";
+import { io } from "socket.io-client";
 
 export const ChatContext = createContext();
 
@@ -7,10 +8,62 @@ export const ChatProvider = ({ children, user }) => {
     const [chats, setChats] = useState(null);
     const [newChats, setNewChats] = useState(null);
     const [currentChat, setCurrentChat] = useState(null);
-    const [messages, setMessages] = useState(null);
+    const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState(null);
     const messageContainer = useRef(null);
     const [showNewChat, setShowNewChat] = useState(false);
+    const [socket, setSocket] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
+
+    useEffect(() => {
+        const newSocket = io("http://localhost:4000");
+        setSocket(newSocket);
+
+        return () => {
+            newSocket.disconnect();
+        }
+    }, [user])
+
+
+    useEffect(() => {
+        if(socket && user?.userId) {
+            socket.emit("login", user?.userId);
+            socket.on("getConnectedUsers", (response) => {
+                setOnlineUsers(response);
+            })
+        }
+    }, [socket, user?.userId])
+
+
+    //send messages
+    useEffect(() => {
+        if(socket) {
+            const friendId = currentChat ? (currentChat.friendId === user?.userId ? currentChat.userId : currentChat.friendId) : null;
+    
+            socket.emit("sendMessage", {...newMessage, friendId});
+        }
+    }, [chats, currentChat,socket, newMessage, user?.userId])
+
+
+    //receive messages
+    useEffect(() => {
+        if(socket) {
+
+            socket.on("getMessage", (message) => {
+                if(currentChat?.userId !== message.userId && currentChat?.friendId !== message.userId) {
+                    return;
+                }
+
+                setMessages((prev) => [...prev, message]);
+            })
+
+            return () => {
+                socket.off("getMessage");
+            
+            }
+        }
+    }, [socket, currentChat])
+
 
     useEffect(() => {
         const getUsers = async () => {
@@ -145,7 +198,8 @@ export const ChatProvider = ({ children, user }) => {
             sendMessage,
             messageContainer,
             showNewChat,
-            showNewChatForm
+            showNewChatForm,
+            onlineUsers
         }}>
             {children}
         </ChatContext.Provider>

@@ -32,6 +32,11 @@ class Users extends Model {
             password: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            profilePhoto:{
+                type: DataTypes.STRING,
+                allowNull: false,
+                defaultValue: "/src/assets/defaultUserImg.png"
             }
         }, {
             sequelize,

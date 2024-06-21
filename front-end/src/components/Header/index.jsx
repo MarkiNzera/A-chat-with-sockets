@@ -1,7 +1,7 @@
 import userImg from '../../assets/defaultUserImg.png'
-import { MdLocalPhone, MdMoreVert, MdVideocam } from "react-icons/md";
+import { MdMoreVert } from "react-icons/md";
 import styles from './header.module.css'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import { ChatContext } from '../../providers/ChatProvider';
 
@@ -9,6 +9,11 @@ export default function Header ({ friend }) {
 
     const { logoutUser } = useContext(AuthContext);
     const { onlineUsers } = useContext(ChatContext);
+    const [menuVisible, setMenuVisible] = useState(false);
+    
+    const toggleMenu = () => {
+        setMenuVisible(!menuVisible);
+    };
 
     return (
         <header className={styles.chatHeader}>
@@ -23,9 +28,10 @@ export default function Header ({ friend }) {
             </div>
 
             <div className={styles.contactIcons}>
-                <MdLocalPhone size={27} />
-                <MdVideocam size={32} />
-                <MdMoreVert size={30} onClick={logoutUser}/>
+                <MdMoreVert size={30} className={styles.more} onClick={toggleMenu}/>
+                <nav className={`${styles.options} ${menuVisible ? styles.active : ''}`}>
+                    <button onClick={logoutUser}>Desconectar</button>
+                </nav>
             </div>
 
         </header>

@@ -31,9 +31,39 @@
 }
 
 .contactIcons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 30px;
     color: var(--main_color);
+    position: relative;
+}
+
+.more {
+    cursor: pointer;
+}
+
+.options {
+    position: absolute;
+    right: 12px;
+    top: 28px;
+    background-color: var(--body_color);
+    padding: 0 28px;
+    border-radius: 10px;
+    display: none;
+    border: solid 2px var(--border_color);
+    color: var(--text_primary);
+}
+
+.active {
+    display: block;
+}
+
+.options:hover {
+    background-color: var(--border_color);
+}
+
+.options > button {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px;
+    color: var(--text_primary);
 }

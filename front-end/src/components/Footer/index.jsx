@@ -10,6 +10,13 @@ export default function Footer({ currentChat }) {
     const { sendMessage } = useContext(ChatContext);
     const [inputMessage, setInputMessage] = useState('');
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            sendMessage(inputMessage, currentChat?.friendshipId, user?.userId, setInputMessage);
+        }
+    }
+
     return (
         <footer className={styles.footer}>
             <input 
@@ -19,6 +26,7 @@ export default function Footer({ currentChat }) {
                 placeholder="Digite uma mensagem..." 
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
+                onKeyDown={handleKeyDown}
             />
             <div className={styles.icons}>
                 <MdAttachFile className={styles.icon} size={24} />

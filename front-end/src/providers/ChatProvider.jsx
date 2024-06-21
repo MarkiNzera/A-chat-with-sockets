@@ -217,6 +217,17 @@ export const ChatProvider = ({ children, user }) => {
             setCurrentChat(chat);
         }, [])
 
+        function formatDate(date) {
+            const formatTime = new Date(date);
+        
+            return formatTime.toLocaleTimeString("pt-BT", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+            });
+        }
+        
+
     return (
         <ChatContext.Provider value={{
             chats,
@@ -232,7 +243,8 @@ export const ChatProvider = ({ children, user }) => {
             showNewChatForm,
             onlineUsers,
             notifications,
-            checkNotifications
+            checkNotifications,
+            formatDate
         }}>
             {children}
         </ChatContext.Provider>

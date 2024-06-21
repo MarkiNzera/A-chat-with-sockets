@@ -9,7 +9,7 @@ import { LatestMessageProvider } from '../../providers/LatestMessageProvider';
 export default function Card({chat, user}) {
 
     const { friend } = FriendsProvider(chat, user);
-    const { notifications, checkNotifications } = useContext(ChatContext);
+    const { notifications, checkNotifications, formatDate } = useContext(ChatContext);
     const unreadMessages = getUnreadMessages(notifications);
     const logedUserNotifications = unreadMessages?.filter(
         n => n.senderId === friend?.userId
@@ -42,7 +42,7 @@ export default function Card({chat, user}) {
                 </span>
             </div>
             <div className={styles.messageData}>
-                <p>01:55</p>
+                <p>{formatDate(latestMessage?.createdAt)}</p>
                 <span className={logedUserNotifications?.length > 0 ? styles.newMessage : ""}>
                     {logedUserNotifications?.length > 0 ? logedUserNotifications?.length : ""}
                 </span>

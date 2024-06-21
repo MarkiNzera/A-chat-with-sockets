@@ -6,7 +6,7 @@ import { ChatContext } from '../../providers/ChatProvider';
 import { getUnreadMessages } from '../../services/getUnreadMessages';
 import { LatestMessageProvider } from '../../providers/LatestMessageProvider';
 
-export default function Card({chat, user}) {
+export default function Card({chat, user, filter}) {
 
     const { friend } = FriendsProvider(chat, user);
     const { notifications, checkNotifications } = useContext(ChatContext);
@@ -24,6 +24,10 @@ export default function Card({chat, user}) {
         }
 
         return cutText;
+    }
+
+    if(!friend?.username?.includes(filter)) {
+        return null;
     }
 
     return (

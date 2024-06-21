@@ -80,6 +80,19 @@ export const ChatProvider = ({ children, user }) => {
 
 
     useEffect(() => {
+        if(socket) {
+            socket.on('newChat', (chat) => {
+                setChats(prevChats => [...prevChats, chat]);
+            });
+        
+            return () => {
+                socket.disconnect();
+            };
+            }
+    }, [socket]);
+
+
+    useEffect(() => {
         const getUsers = async () => {
             const response = await api.get('/users');
 
@@ -185,10 +198,16 @@ export const ChatProvider = ({ children, user }) => {
             setChats((prev) => [...prev, response.data.friendship])
             setCurrentChat(response.data.friendship);
             setShowNewChat(false);
+    
+            // Emit the event to the friend
+            const friendSocketId = onlineUsers.find((user) => user.userId === friendId)?.socketId;
+            if(friendSocketId) {
+                socket.emit('newChat', {friendSocketId, chat: response.data.friendship});
+            }
         } else {
             console.error(response.data.message)
         }
-    }, [])
+    }, [onlineUsers, socket])
 
     
         const showNewChatForm = useCallback(() => {
@@ -236,8 +255,10 @@ export const ChatProvider = ({ children, user }) => {
     return (
         <ChatContext.Provider value={{
             chats,
+            setChats,
             user,
             newChats,
+            setNewChats,
             startChat,
             currentChat,
             selectChat,

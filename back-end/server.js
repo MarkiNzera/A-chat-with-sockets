@@ -52,6 +52,11 @@ io.on("connection", (socket) => {
             });
         }
     })
+    
+
+    socket.on("newChat", ({friendSocketId, chat}) => {
+        io.to(friendSocketId).emit("newChat", chat);
+    })
 
 
     socket.on("disconnect", () => {

@@ -9,7 +9,7 @@ import DarkMode from '../DarkMode';
 
 export default function Aside () {
 
-    const { user } = useContext(AuthContext);
+    const { user, logoutUser } = useContext(AuthContext);
     const { chats, selectChat, showNewChatForm } = useContext(ChatContext);
     const [search, setSearch] = useState('');
 
@@ -26,7 +26,7 @@ export default function Aside () {
                 </div>
                 <div className={styles.headerBottom}>
                     <h3>Bem vindo(a), {user?.username?.toUpperCase()}</h3>
-                    <FaPowerOff size={20} className={styles.disconnect}/>
+                    <FaPowerOff size={20} className={styles.disconnect} onClick={logoutUser}/>
                 </div>
             </header>
 

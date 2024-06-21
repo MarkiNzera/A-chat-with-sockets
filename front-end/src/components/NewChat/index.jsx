@@ -8,9 +8,8 @@ export default function NewChat () {
     const { newChats } = useContext(ChatContext);
 
     return (
-        <div className={styles.newChatContainer}>
+        <div className={styles.newChatContainer} id="newChat">
             <h2>Nova conversa</h2>
-            <input type="text" />
             <div>
                 {newChats?.map((chat, index) => (
                     <NewChatCard key={index} chat={chat} user={chat} />

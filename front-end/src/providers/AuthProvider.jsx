@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
     const [register, setRegister] = useState({});
     const [login, setLogin] = useState({});
 
+
     const registerUser = useCallback(async (e) => {
         e.preventDefault();
         const response = await api.post('/register', register);
@@ -41,50 +42,18 @@ const AuthProvider = ({ children }) => {
     }, []);
 
 
-
-
-
-
-    // const [token, setToken] = useState(localStorage.getItem('user').accessToken || null);
-
-    // const updateToken = (newToken) => {
-    //     setToken(newToken);
-    // }
-
-    // const contextValue = useMemo(() => ({ token, updateToken }), [token]);
-
-    // useEffect(() => {
-    //     if(token) {
-    //         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
-    //         localStorage.setItem('accessToken', token);
-    //     } else {
-    //         delete axios.defaults.headers.common['Authorization'];
-
-    //         localStorage.removeItem('accessToken');
-    //     }
-    // }, [token])
-
-
-
-
-
-
-
-
     const updateRegister = useCallback((userData) => {
         setRegister(userData);
     }, [])
+
 
     const updateLogin = useCallback((userData) => {
         setLogin(userData);
     }, [])
 
 
-
     return (
         <AuthContext.Provider value={{
-            // contextValue,
             user,
             register,
             updateRegister,

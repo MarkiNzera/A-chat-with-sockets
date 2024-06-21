@@ -9,12 +9,9 @@ import DarkMode from '../DarkMode';
 export default function Aside () {
 
     const { user } = useContext(AuthContext)
-    const { chats, selectChat, showNewChatForm } = useContext(ChatContext);
-
+    const { chats, selectChat, showNewChatForm, onlineUsers } = useContext(ChatContext);
     return (
         <aside className={styles.asideBar}>
-
-            
 
             <header className={styles.asideHeader}>
                 <div className={styles.logo}>
@@ -36,11 +33,18 @@ export default function Aside () {
             </div>
 
             <div className={styles.chatsList}>
-                {chats?.map((chat, index) => (
-                    <div key={index} onClick={() => selectChat(chat)}>
-                        <Card chat={chat} user={user}/>
-                    </div>
-                ))}
+                {chats?.map((chat, index) => {
+                    return (
+                        <div className={styles.friendCardContainer} key={index} onClick={() =>{
+                            selectChat(chat);
+                        }}>
+                            <Card chat={chat} user={user}/>
+                            <span className={
+                                onlineUsers?.some((friend) => friend?.userId === chat?.userId && friend.userId !== user.userId) ? styles.on : styles.off
+                            }></span>
+                        </div>
+                    );
+                })}
             </div>
         </aside>
     )

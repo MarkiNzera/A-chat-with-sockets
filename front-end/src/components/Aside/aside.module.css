@@ -97,3 +97,27 @@
     height: 5px;
     background: #555;
 }
+
+.friendCardContainer {
+    position: relative;;
+}
+
+.on {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 46px;
+    top: 12px;
+    border-radius: 100%;
+    background-color: green;
+}
+
+.off {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 46px;
+    top: 12px;
+    border-radius: 100%;
+    background-color: red;
+}

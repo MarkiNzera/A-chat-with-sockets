@@ -5,6 +5,7 @@
     padding: 10px;
     cursor: pointer;
     border-radius: 10px;
+    position: relative;
 }
 
 .message:hover {
@@ -54,8 +55,28 @@
     font-size: 14px;
 }
 
-.messageTime {
+.messageData {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 5px;
     flex-shrink: 0;
     color: var(--text_primary);
     margin-left: 10px;
+}
+
+.messageData span {
+    font-size: 11px;
+    color: #FFFFFF;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 16px;
+    border-radius: 100%;
+    font-weight: bold;
+}
+
+.newMessage {
+    background-color: var(--main_color);
 }

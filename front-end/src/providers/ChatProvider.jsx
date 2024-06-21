@@ -14,7 +14,8 @@ export const ChatProvider = ({ children, user }) => {
     const [showNewChat, setShowNewChat] = useState(false);
     const [socket, setSocket] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([]);
-
+    const [notifications, setNotifications] = useState([]);
+    
     useEffect(() => {
         const newSocket = io("http://localhost:4000");
         setSocket(newSocket);
@@ -57,9 +58,19 @@ export const ChatProvider = ({ children, user }) => {
                 setMessages((prev) => [...prev, message]);
             })
 
+            socket.on("getNotification", (res) => {
+                const isChatOpen = currentChat?.friendId === res?.senderId || currentChat?.userId === res?.senderId;
+
+                if(isChatOpen) {
+                    setNotifications((prev) => [{...res, isRead: true}, ...prev]);
+                } else {
+                    setNotifications(prev => [res, ...prev])
+                }
+            })
+
             return () => {
                 socket.off("getMessage");
-            
+                socket.off("getNotification");
             }
         }
     }, [socket, currentChat])
@@ -175,16 +186,37 @@ export const ChatProvider = ({ children, user }) => {
         }
     }, [])
 
+    
+        const showNewChatForm = useCallback(() => {
+            setShowNewChat(!showNewChat);
+        }, [showNewChat]);
 
-    const selectChat = useCallback((chat) => {
-        setCurrentChat(chat);
-    }, [])
+        
+        const checkNotifications = useCallback((userUnreadMessages, notifications) => {
+
+            const readedNotifications = notifications.map(e => {
+                let notification;
+
+                userUnreadMessages.forEach(n => {
+                    if(n.senderId === e.senderId) {
+                        notification = {...n, isRead: true}
+                    } else {
+                        notification = e;
+                    }
+                })
+
+                return notification;
+            }) 
 
 
-    const showNewChatForm = useCallback(() => {
-        setShowNewChat(!showNewChat);
-    }, [showNewChat]);
-
+            setNotifications(readedNotifications);
+            
+        }, [])
+        
+        
+        const selectChat = useCallback((chat) => {
+            setCurrentChat(chat);
+        }, [])
 
     return (
         <ChatContext.Provider value={{
@@ -199,7 +231,9 @@ export const ChatProvider = ({ children, user }) => {
             messageContainer,
             showNewChat,
             showNewChatForm,
-            onlineUsers
+            onlineUsers,
+            notifications,
+            checkNotifications
         }}>
             {children}
         </ChatContext.Provider>

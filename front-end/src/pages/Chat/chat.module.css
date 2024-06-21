@@ -19,25 +19,25 @@ main {
 
 .messagesContainer {
     height: calc(100vh - 160px);
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
     width: calc(100vw - 300px);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
     padding-bottom: 30px;
 }
 
 .messagesContainer::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
 }
 
 .messagesContainer::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--body_color);
 }
 
 .messagesContainer::-webkit-scrollbar-thumb {
-    background: #888;
+    background: var(--border_color);
 }
 
 .messagesContainer::-webkit-scrollbar-thumb:hover {

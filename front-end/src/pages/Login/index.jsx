@@ -6,7 +6,7 @@ import { MdLogoDev } from "react-icons/md";
 
 export default function Login() {
 
-    const { login, updateLogin, loginUser } = useContext(AuthContext);
+    const { login, updateLogin, loginUser, loginError, loginErrorMessage} = useContext(AuthContext);
     
     const navigate = useNavigate();
 
@@ -26,6 +26,13 @@ export default function Login() {
 
                     <button type="submit" className={styles.button}>Login</button>
                 </form>
+
+                 
+                { loginError && 
+                <div className={styles.error}>
+                    <p>{ loginErrorMessage } </p>
+                </div>
+                }
 
                 <p className={styles.text}>Não possui uma conta?</p>
 

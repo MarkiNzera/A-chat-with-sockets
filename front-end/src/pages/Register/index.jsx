@@ -6,7 +6,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 
 export default function Register() {
 
-    const { register, updateRegister, registerUser } = useContext(AuthContext);
+    const { register, updateRegister, registerUser, registerError, registerErrorMessage } = useContext(AuthContext);
     
     const navigate = useNavigate();
 
@@ -32,6 +32,12 @@ export default function Register() {
 
                     <button type="submit" className={styles.button}>Criar Conta</button>
                 </form>
+
+                { registerError && 
+                <div className={styles.error}>
+                    <p>{ registerErrorMessage } </p>
+                </div>
+                }
 
                 <p className={styles.text}>Já possui uma conta?</p>
 

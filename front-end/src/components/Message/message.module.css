@@ -34,15 +34,7 @@
     color: var(--text_primary);
 }
 
-<<<<<<< HEAD
 .time {
     font-size: 10px;
     text-align: right;
 }
-=======
-.messageTime {
-    font-size: 10px;
-    display: flex;
-    align-items: right;
-}
->>>>>>> 5fd664b644fc24cbfcfff827797771f713c341ee

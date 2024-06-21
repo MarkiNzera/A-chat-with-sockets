@@ -45,6 +45,11 @@ io.on("connection", (socket) => {
 
         if(user) {
             io.to(user.socketId).emit("getMessage", message);
+            io.to(user.socketId).emit("getNotification", {
+                senderId: message.userId,
+                isRead: false,
+                date: new Date()
+            });
         }
     })
 

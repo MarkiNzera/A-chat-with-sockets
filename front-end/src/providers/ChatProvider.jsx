@@ -129,7 +129,6 @@ export const ChatProvider = ({ children, user }) => {
                 if(response.status === 200) {
                     setMessages(response.data);
                 } else {
-                    console.log(response.data.message);
                     console.error(response.data.message);
                 }
             }

@@ -12,7 +12,6 @@ export const LatestMessageProvider = (chat) => {
 
             if(response.status === 200) {
                 const lastMessage = response?.data[response?.data?.length - 1];
-                console.log(lastMessage);
 
                 if(lastMessage) {
                     setLatestMessage(lastMessage);

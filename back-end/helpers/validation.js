@@ -23,7 +23,7 @@ module.exports = {
                 return [ false, 'User not found', null ];
             }
         
-                const PwdCheck = await bcrypt2.compare(body.password, checkedUser.password);
+            const PwdCheck = await bcrypt2.compare(body.password, checkedUser.password);
             if (!PwdCheck){
                 return [ false, 'Invalid password', null ];
             }
@@ -47,7 +47,7 @@ module.exports = {
         const { error } = schema.validate(body);
 
         if (error){
-            return [ false, error.details[0], null];
+            return [ false, error.details[0].message, null];
         }
         try {
 

@@ -13,7 +13,7 @@ export default function Message({ text, sender, createdAt }) {
         <div className={styles.messageContainer}>
             <div className={`${styles.message} ${messageClass}`}>
                 {text}
-                <div>
+                <div className={styles.messageTime}>
                     <p>{formatDate(createdAt)}</p>
                 </div>
             </div>

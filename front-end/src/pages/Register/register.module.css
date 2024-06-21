@@ -51,3 +51,9 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+.error {
+    color: rgb(182, 32, 32);
+    font-weight: bold;
+    font-size: 12px;
+}

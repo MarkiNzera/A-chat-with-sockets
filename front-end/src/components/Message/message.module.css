@@ -33,3 +33,9 @@
     background-color: var(--message_received);
     color: var(--text_primary);
 }
+
+.messageTime {
+    font-size: 10px;
+    display: flex;
+    align-items: right;
+}

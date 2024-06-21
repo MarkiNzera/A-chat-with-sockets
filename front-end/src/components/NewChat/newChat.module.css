@@ -1,7 +1,7 @@
 .newChatContainer {
     position: absolute;
-    top: 103px;
-    left: 244px;
+    top: 136px;
+    left: 274px;
     background-color: var(--body_color);
     padding: 20px;
     filter: drop-shadow(5px 5px 10px var(--drop_shadow_color));
@@ -13,22 +13,4 @@ h2 {
     text-align: center;
     margin-bottom: 10px;
     color: var(--text_primary);
-}
-
-.newChatContainer input {
-    width: 100%;
-    padding: 8px 10px 8px 10px;
-    border: 1px solid var(--border_color);
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
-    margin-bottom: 10px;
-    color: var(--text_primary);
-    background-color: var(--body_color);
-}
-
-input::placeholder {
-    color: var(--text_primary);
-    font-weight:300;
-    letter-spacing: 1px;
 }

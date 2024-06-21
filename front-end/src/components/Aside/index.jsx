@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { MdLogoDev, MdOutlineSearch, MdAdd } from "react-icons/md";
+import { FaPowerOff } from "react-icons/fa6";
 import { ChatContext } from '../../providers/ChatProvider';
 import { AuthContext } from '../../providers/AuthProvider';
 import Card from "../Card";
@@ -9,18 +10,24 @@ import DarkMode from '../DarkMode';
 export default function Aside () {
 
     const { user } = useContext(AuthContext);
-    const { chats, selectChat, showNewChatForm, onlineUsers } = useContext(ChatContext);
+    const { chats, selectChat, showNewChatForm } = useContext(ChatContext);
     const [search, setSearch] = useState('');
 
     return (
         <aside className={styles.asideBar}>
 
             <header className={styles.asideHeader}>
-                <div className={styles.logo}>
-                    <MdLogoDev size={28}/>
-                    <span>Socket Chat</span>
+                <div className={styles.headerTop}>
+                    <div className={styles.logo}>
+                        <MdLogoDev size={28}/>
+                        <span>Socket Chat</span>
+                    </div>
+                    <DarkMode className={styles.mode} />
                 </div>
-                <DarkMode className={styles.mode} />
+                <div className={styles.headerBottom}>
+                    <h3>Bem vindo(a), {user?.username?.toUpperCase()}</h3>
+                    <FaPowerOff size={20} className={styles.disconnect}/>
+                </div>
             </header>
 
             <div className={styles.search}>
@@ -43,9 +50,9 @@ export default function Aside () {
                             selectChat(chat);
                         }}>
                             <Card chat={chat} user={user} filter={search}/>
-                            <span className={
+                            {/* <span className={
                                 onlineUsers?.some((friend) => friend?.userId === chat?.userId && friend.userId !== user.userId) ? styles.on : styles.off
-                            }></span>
+                            }></span> */}
                         </div>
                     );
                 })}

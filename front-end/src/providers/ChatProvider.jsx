@@ -38,11 +38,14 @@ export const ChatProvider = ({ children, user }) => {
 
     //send messages
     useEffect(() => {
-        if(socket) {
-            const friendId = currentChat ? (currentChat.friendId === user?.userId ? currentChat.userId : currentChat.friendId) : null;
-    
-            socket.emit("sendMessage", {...newMessage, friendId});
-        }
+        if (newMessage !== null && newMessage?.isSent !== null) {
+            if(socket && !newMessage?.isSent) {
+                const friendId = currentChat ? (currentChat.friendId === user?.userId ? currentChat.userId : currentChat.friendId) : null;
+        
+                socket.emit("sendMessage", {...newMessage?.message, friendId});
+                newMessage.isSent = true;
+            }
+        }        
     }, [chats, currentChat,socket, newMessage, user?.userId])
 
 
@@ -103,7 +106,7 @@ export const ChatProvider = ({ children, user }) => {
         }
 
         getUsers();
-    }, [chats, user?.userId]);
+    }, [chats, user?.userId, onlineUsers]);
 
 
     useEffect(() => {
@@ -154,7 +157,8 @@ export const ChatProvider = ({ children, user }) => {
         message,
         friendshipId,
         userId,
-        clearInput
+        clearInput,
+        isSent = false
     ) => {
         if(message) {
             const response = await api.post('/pvmessages', {
@@ -163,7 +167,8 @@ export const ChatProvider = ({ children, user }) => {
                 userId: userId
             })
             if(response.status === 201) {
-                setNewMessage(response.data.pvmessage)
+                let message = response.data.pvmessage;
+                setNewMessage({message, isSent})
                 clearInput('');
                 setMessages((prev) => [...prev, response.data.pvmessage])
                 scrollToBottom();

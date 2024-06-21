@@ -1,4 +1,4 @@
-import { MdAttachFile, MdSend } from "react-icons/md";
+import { MdSend } from "react-icons/md";
 import { ChatContext } from '../../providers/ChatProvider';
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -9,6 +9,7 @@ export default function Footer({ currentChat }) {
     const { user } = useContext(AuthContext);
     const { sendMessage } = useContext(ChatContext);
     const [inputMessage, setInputMessage] = useState('');
+    let isSent = false;
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -29,14 +30,14 @@ export default function Footer({ currentChat }) {
                 onKeyDown={handleKeyDown}
             />
             <div className={styles.icons}>
-                <MdAttachFile className={styles.icon} size={24} />
                 <MdSend className={styles.icon}
                     size={24}
                     onClick={() => sendMessage(
                         inputMessage,
                         currentChat.friendshipId,
                         user.userId,
-                        setInputMessage
+                        setInputMessage,
+                        isSent,
                     )}
                 />
             </div>

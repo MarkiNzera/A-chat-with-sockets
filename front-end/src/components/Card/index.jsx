@@ -9,7 +9,7 @@ import { LatestMessageProvider } from '../../providers/LatestMessageProvider';
 export default function Card({chat, user, filter}) {
 
     const { friend } = FriendsProvider(chat, user);
-    const { notifications, checkNotifications, formatDate } = useContext(ChatContext);
+    const { notifications, checkNotifications, formatDate, onlineUsers } = useContext(ChatContext);
     const unreadMessages = getUnreadMessages(notifications);
     const logedUserNotifications = unreadMessages?.filter(
         n => n.senderId === friend?.userId
@@ -38,6 +38,9 @@ export default function Card({chat, user, filter}) {
         }} >
             <div className={styles.avatar}>
                 <img src={userImg} alt="" />
+                <span className={
+                    onlineUsers?.some((user) => user?.userId === friend?.userId) ? styles.on : styles.off
+                }></span>
             </div>
             <div className={styles.messageContent}>
                 <span>{friend?.username}</span>

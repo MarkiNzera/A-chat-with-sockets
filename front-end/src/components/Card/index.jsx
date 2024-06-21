@@ -46,7 +46,7 @@ export default function Card({chat, user, filter}) {
                 </span>
             </div>
             <div className={styles.messageData}>
-                <p>{formatDate(latestMessage?.createdAt)}</p>
+                <p>{formatDate(latestMessage?.createdAt) !== "Invalid Date" ? formatDate(latestMessage?.createdAt): ""}</p>
                 <span className={logedUserNotifications?.length > 0 ? styles.newMessage : ""}>
                     {logedUserNotifications?.length > 0 ? logedUserNotifications?.length : ""}
                 </span>

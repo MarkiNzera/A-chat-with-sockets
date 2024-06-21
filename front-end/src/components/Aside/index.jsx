@@ -11,7 +11,6 @@ export default function Aside () {
     const { user } = useContext(AuthContext);
     const { chats, selectChat, showNewChatForm, onlineUsers } = useContext(ChatContext);
     const [search, setSearch] = useState('');
-    console.log(search)
 
     return (
         <aside className={styles.asideBar}>
